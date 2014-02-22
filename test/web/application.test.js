@@ -18,8 +18,11 @@ describe('Application CRUD ops', function() {
   before(function(done) {
     tester.express(6699, function(app) {
       expressApp = app;
-      kansas = kansasApi(app);
-    }).then(done.bind(null, null), done);
+      kansas = kansasApi();
+      kansas.connect()
+        .then(kansas.express.bind(kansas, expressApp))
+        .then(done.bind(null, null));
+    }).catch(done);
   });
 
   beforeEach(function(done) {
