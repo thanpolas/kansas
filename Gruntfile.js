@@ -1,18 +1,16 @@
-'use strict';
+/*jshint camelcase:false */
 
 module.exports = function (grunt) {
-  // Show elapsed time at the end
-  require('time-grunt')(grunt);
   // Load all grunt tasks
   require('load-grunt-tasks')(grunt);
 
   // Project configuration.
   grunt.initConfig({
     mochaTest: {
-     options: {
-	ui: 'tdd'
-     }, 
-     test: {
+      options: {
+        ui: 'bdd',
+      },
+      test: {
         src: ['test/**/*.js']
       }
     },
@@ -46,8 +44,9 @@ module.exports = function (grunt) {
       }
     }
   });
+  grunt.registerTask('start', 'Start all required services', ['startMongo', 'startRedis']);
+  grunt.registerTask('stop', 'Stop all services', ['stopMongo', 'stopRedis']);
 
   // Default task.
   grunt.registerTask('default', ['jshint', 'mochaTest']);
-
 };
