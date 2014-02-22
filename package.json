@@ -45,6 +45,10 @@
     "grunt": "~0.4.2",
     "chai": "~1.9.0",
     "sinon": "~1.8.2",
-    "grunt-services": "0.0.1"
+    "grunt-services": "0.0.1",
+    "connect": "~2.13.0",
+    "express": "~3.4.8",
+    "connect-redis": "~1.4.7",
+    "connect-flash": "~0.1.1"
   }
 }
