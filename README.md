@@ -1,9 +1,12 @@
-# kansas [![Build Status](https://secure.travis-ci.org/thanpolas/kansas.png?branch=master)](http://travis-ci.org/thanpolas/kansas)
+# Kansas 
 
 Rate limited API to go
 
+[![Build Status](https://secure.travis-ci.org/thanpolas/kansas.png?branch=master)](http://travis-ci.org/thanpolas/kansas)
+
 ## Getting Started
-Install the module with: `npm install kansas`
+
+Install the module with: `npm install kansas --save`
 
 ```javascript
 var kansas = require('kansas');
