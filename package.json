@@ -27,5 +27,13 @@
     "load-grunt-tasks": "~0.3.0",
     "mocha": "~1.17.1",
     "grunt-mocha-test": "~0.9.0"
+  },
+  "dependencies": {
+    "logg": "~0.2.2",
+    "mongoose": "~3.8.7",
+    "cip": "~0.2.1",
+    "entity": "0.0.0",
+    "middlewarify": "~0.3.4",
+    "crude": "~0.2.3"
   }
 }
