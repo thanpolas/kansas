@@ -60,11 +60,11 @@ tester.express = function(port, optPayload) {
     });
     var storeDeferred = new Promise.defer();
     sessionStore.on('disconnect', function(err) {
-      console.warn('init() :: Session Redis store disconnected. Error:', err);
+      console.warn('tester.init() :: Session Redis store disconnected. Error:', err);
       storeDeferred.reject(err);
     });
     sessionStore.on('connect', function() {
-      console.log('init() :: Session Redis store connected.');
+      console.log('tester.init() :: Session Redis store connected.');
       storeDeferred.resolve();
     });
 
@@ -99,6 +99,7 @@ tester.express = function(port, optPayload) {
       webserverPromise,
       storeDeferred.promise,
     ]).then(function(result) {
+      console.log('tester.express() :: All done.');
       resolve({
         app: app,
         webserver: result[0],
@@ -122,17 +123,17 @@ tester.startWebserver = function(app) {
     var port = app.get('port');
 
     webserver.on('clientError', function(err) {
-      console.warn('startWebserver() :: Client Error on port:', port, ':: Exception:', err);
-      console.warn('startWebserver() :: Client STACK:', err, err.stack);
+      console.warn('tester.startWebserver() :: Client Error on port:', port, ':: Exception:', err);
+      console.warn('tester.startWebserver() :: Client STACK:', err, err.stack);
     });
     webserver.on('error', function(err) {
-      console.error('startWebserver() :: Failed to start web server on port:', port,
+      console.error('tester.startWebserver() :: Failed to start web server on port:', port,
         ':: Exception:', err);
       reject(err);
     });
 
     webserver.listen(app.get('port'), function(){
-      console.log('startWebserver() :: Webserver launched. Listening on port: ' + port);
+      console.log('tester.startWebserver() :: Webserver launched. Listening on port: ' + port);
       resolve(webserver);
     });
   });
