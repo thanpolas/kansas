@@ -95,4 +95,27 @@ describe('Application CRUD ops', function() {
         }).end(done);
     });
   });
+  describe('Delete Ops', function() {
+    var appDoc;
+    beforeEach(function(done) {
+      kansas.appEnt.create({
+        name: 'one-to-go',
+        hostname: 'two.three',
+      }).then(function(doc) {
+        appDoc = doc;
+      }).then(done, done);
+    });
+
+    it('Will delete a record', function(done) {
+      req.del('/application/' + appDoc.uniqueUrl)
+        .expect(200)
+        .end(function(err) {
+          if (err) { return done(err); }
+          kansas.appEnt.readOne({name: 'one-to-go'})
+            .then(function(res) {
+              expect(res).to.be.null;
+            }).then(done, done);
+        });
+    });
+  });
 });
