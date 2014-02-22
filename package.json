@@ -27,7 +27,7 @@
     "mongoose": "~3.8.7",
     "cip": "~0.2.1",
     "middlewarify": "~0.3.4",
-    "crude": "~0.3.2",
+    "crude": "~0.3.4",
     "bluebird": "~1.0.5",
     "lodash": "~2.4.1",
     "node-entity": "~0.2.3",

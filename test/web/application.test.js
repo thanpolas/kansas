@@ -78,7 +78,7 @@ describe('Application CRUD ops', function() {
         .expect(200)
         .expect(/one\-to\-go/, done);
     });
-    it.only('Will read a record using JSON', function(done) {
+    it('Will read a record using JSON', function(done) {
       req.get('/application/' + appDoc.uniqueUrl)
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
