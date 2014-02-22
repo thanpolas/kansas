@@ -34,7 +34,7 @@
     "cip": "~0.2.1",
     "entity": "0.0.0",
     "middlewarify": "~0.3.4",
-    "crude": "~0.2.3",
+    "crude": "~0.3.2",
     "bluebird": "~1.0.5",
     "lodash": "~2.4.1"
   }
