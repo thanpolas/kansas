@@ -105,9 +105,22 @@ describe('Application CRUD ops', function() {
         appDoc = doc;
       }).then(done, done);
     });
-
     it('Will delete a record', function(done) {
       req.del('/application/' + appDoc.uniqueUrl)
+        .expect(302)
+        .expect('location', '/application')
+        .end(function(err) {
+          if (err) { return done(err); }
+          kansas.appEnt.readOne({name: 'one-to-go'})
+            .then(function(res) {
+              expect(res).to.be.null;
+            }).then(done, done);
+        });
+    });
+    it('Will delete a record using JSON', function(done) {
+      req.del('/application/' + appDoc.uniqueUrl)
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
         .expect(200)
         .end(function(err) {
           if (err) { return done(err); }
