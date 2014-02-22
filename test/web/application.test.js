@@ -16,12 +16,12 @@ describe('Application CRUD ops', function() {
   var kansas;
 
   before(function(done) {
-    tester.express(6699, function(app) {
-      expressApp = app;
-      kansas = kansasApi();
-      kansas.connect()
-        .then(kansas.express.bind(kansas, expressApp))
-        .then(done.bind(null, null));
+    kansas = kansasApi();
+    kansas.connect().then(function() {
+      tester.express(6699, function(app) {
+        expressApp = app;
+        kansas.express(expressApp);
+      }).then(done.bind(null, null));
     }).catch(done);
   });
 
@@ -31,9 +31,17 @@ describe('Application CRUD ops', function() {
     done();
   });
 
+  beforeEach(function(done) {
+    kansas.appEnt.delete({name: 'one-to-go'})
+      .then(done.bind(null, null))
+      .catch(done);
+  });
+
   it('Will create a new application', function(done) {
     req.post('/application')
-      .expect(200, done);
+      .send({name: 'one-to-go', hostname: 'two.three'})
+      .expect('location', /[\d]{6}\-one\-to\-go/)
+      .expect(302, done);
   });
 });
 
