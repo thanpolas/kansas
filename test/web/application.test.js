@@ -43,5 +43,23 @@ describe('Application CRUD ops', function() {
       .expect('location', /[\d]{6}\-one\-to\-go/)
       .expect(302, done);
   });
+  it.only('Will create a new application and return the JSON object', function(done) {
+    req.post('/application')
+      .set('Accept', 'application/json')
+      .send({name: 'one-to-go', hostname: 'two.three'})
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .expect(function(res) {
+        expect(res.body).to.have.keys([
+          'name',
+          'uniqueUrl',
+          'hostname',
+          'ownerId',
+          'createdOn',
+          'tokens',
+        ]);
+      }).end(done);
+  });
+
 });
 
