@@ -37,29 +37,62 @@ describe('Application CRUD ops', function() {
       .catch(done);
   });
 
-  it('Will create a new application', function(done) {
-    req.post('/application')
-      .send({name: 'one-to-go', hostname: 'two.three'})
-      .expect('location', /[\d]{6}\-one\-to\-go/)
-      .expect(302, done);
+  describe('Create Ops', function () {
+    it('Will create a new application', function(done) {
+      req.post('/application')
+        .send({name: 'one-to-go', hostname: 'two.three'})
+        .expect('location', /[\d]{6}\-one\-to\-go/)
+        .expect(302, done);
+    });
+    it('Will create a new application and return the JSON object', function(done) {
+      req.post('/application')
+        .set('Accept', 'application/json')
+        .send({name: 'one-to-go', hostname: 'two.three'})
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .expect(function(res) {
+          expect(res.body).to.have.keys([
+            'name',
+            'uniqueUrl',
+            'hostname',
+            'ownerId',
+            'createdOn',
+            'tokens',
+          ]);
+        }).end(done);
+    });
   });
-  it.only('Will create a new application and return the JSON object', function(done) {
-    req.post('/application')
-      .set('Accept', 'application/json')
-      .send({name: 'one-to-go', hostname: 'two.three'})
-      .expect('Content-Type', /json/)
-      .expect(200)
-      .expect(function(res) {
-        expect(res.body).to.have.keys([
-          'name',
-          'uniqueUrl',
-          'hostname',
-          'ownerId',
-          'createdOn',
-          'tokens',
-        ]);
-      }).end(done);
-  });
+  describe('Read Ops', function() {
+    var appDoc;
+    beforeEach(function(done) {
+      kansas.appEnt.create({
+        name: 'one-to-go',
+        hostname: 'two.three',
+      }).then(function(doc) {
+        appDoc = doc;
+      }).then(done, done);
+    });
 
+    it('Will read a record', function(done) {
+      req.get('/application/' + appDoc.uniqueUrl)
+        .expect(200)
+        .expect(/one\-to\-go/, done);
+    });
+    it.only('Will read a record using JSON', function(done) {
+      req.get('/application/' + appDoc.uniqueUrl)
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .expect(function(res) {
+          expect(res.body).to.have.keys([
+            'name',
+            'uniqueUrl',
+            'hostname',
+            'ownerId',
+            'createdOn',
+            'tokens',
+          ]);
+        }).end(done);
+    });
+  });
 });
-
