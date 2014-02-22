@@ -26,11 +26,11 @@
     "logg": "~0.2.2",
     "mongoose": "~3.8.7",
     "cip": "~0.2.1",
-    "entity": "0.0.0",
     "middlewarify": "~0.3.4",
     "crude": "~0.3.2",
     "bluebird": "~1.0.5",
-    "lodash": "~2.4.1"
+    "lodash": "~2.4.1",
+    "node-entity": "~0.2.3"
   },
   "devDependencies": {
     "grunt-contrib-watch": "~0.5.3",
@@ -41,13 +41,10 @@
     "grunt-cli": "~0.1.13",
     "grunt-express-server": "~0.4.13",
     "grunt-parallel": "~0.3.1",
-    "grunt-mocha-test": "~0.9.0",
     "grunt-open": "~0.2.3",
     "grunt": "~0.4.2",
     "chai": "~1.9.0",
     "sinon": "~1.8.2",
-    "mocha": "~1.17.1",
-    "grunt-contrib-watch": "~0.5.3",
     "grunt-services": "0.0.1"
   }
 }
