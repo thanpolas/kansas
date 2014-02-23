@@ -29,6 +29,30 @@ tester.cooldown = function(seconds) {
   };
 };
 
+tester.expressApp = null;
+
+/**
+ * Webserver setup helper for tests.
+ *
+ * @param {kansas} kansas A Kansas instance.
+ * @return {Function} The setup.
+ */
+tester.webserver = function(kansas) {
+  return function(done) {
+    kansas.connect().then(function() {
+      if (tester.expressApp) {
+        kansas.express(tester.expressApp);
+        done();
+      } else {
+        tester.express(WEBSERVER_PORT, function(app) {
+          tester.expressApp = app;
+          kansas.express(tester.expressApp);
+        }).then(done.bind(null, null));
+      }
+    }).catch(done);
+  };
+};
+
 /**
  * Kick off a webserver...
  *
