@@ -48,7 +48,7 @@ describe('Token Manage ops', function() {
         .expect(302, done);
     });
     it('Will create a new token and return the JSON object', function(done) {
-      req.post('/application')
+      req.post('/token')
         .set('Accept', 'application/json')
         .send({applicationId: appDoc._id})
         .expect('Content-Type', /json/)
@@ -75,10 +75,10 @@ describe('Token Manage ops', function() {
     it('Will read a record', function(done) {
       req.get('/token/' + tokenDoc.token)
         .expect(200)
-        .expect(tokenDoc.token, done);
+        .expect(/token\/[\d\w]{32}/, done);
     });
     it('Will read a record using JSON', function(done) {
-      req.get('/application/' + tokenDoc.token)
+      req.get('/token/' + tokenDoc.token)
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -114,7 +114,7 @@ describe('Token Manage ops', function() {
     });
     it('Will delete a record using JSON', function(done) {
       req.del('/token/' + tokenDoc.token)
-        .set('Accept', 'token/json')
+        .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200)
         .end(function(err) {
