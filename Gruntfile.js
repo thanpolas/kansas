@@ -10,9 +10,15 @@ module.exports = function (grunt) {
       options: {
         ui: 'bdd',
       },
-      test: {
-        src: ['test/**/*.js']
-      }
+      manage: {
+        src: ['test/manage/*.js']
+      },
+      unit: {
+        options: {
+          ui: 'tdd',
+        },
+        src: ['test/unit/*.js']
+      },
     },
     jshint: {
       options: {
@@ -44,8 +50,8 @@ module.exports = function (grunt) {
       }
     }
   });
-  grunt.registerTask('start', 'Start all required services', ['startMongo', 'startRedis']);
-  grunt.registerTask('stop', 'Stop all services', ['stopMongo', 'stopRedis']);
+  grunt.registerTask('start', 'Start all required services', ['startRedis']);
+  grunt.registerTask('stop', 'Stop all services', ['stopRedis']);
 
   // Default task.
   grunt.registerTask('default', ['jshint', 'mochaTest']);
