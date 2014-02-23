@@ -10,7 +10,7 @@ var kansasApi = require('../../');
 var tester = require('../lib/tester');
 var Web = require('../lib/web');
 
-describe('Token Manage ops', function() {
+describe.skip('Token Manage ops', function() {
   var req;
   var kansas;
   var appDoc;
