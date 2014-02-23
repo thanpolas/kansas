@@ -21,6 +21,7 @@ suite('Token Model', function() {
     var redis = new Redis();
     redis.connect().then(function(cl) {
       client = cl;
+      done();
     }).catch(done);
   });
   setup(function() {
