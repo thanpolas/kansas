@@ -10,23 +10,15 @@ var kansasApi = require('../../');
 var tester = require('../lib/tester');
 var Web = require('../lib/web');
 
-describe('Application CRUD ops', function() {
+describe('Application Manage ops', function() {
   var req;
-  var expressApp;
   var kansas;
+  kansas = kansasApi();
 
-  before(function(done) {
-    kansas = kansasApi();
-    kansas.connect().then(function() {
-      tester.express(6699, function(app) {
-        expressApp = app;
-        kansas.express(expressApp);
-      }).then(done.bind(null, null));
-    }).catch(done);
-  });
+  before(tester.webserver(kansas));
 
   beforeEach(function(done) {
-    var web = new Web(expressApp);
+    var web = new Web(tester.expressApp);
     req = web.req;
     done();
   });
