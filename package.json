@@ -32,7 +32,10 @@
     "node-entity": "~0.2.3",
     "slug": "~0.4.2",
     "validator": "~3.3.0",
-    "floordate": "~1.0.2"
+    "floordate": "~1.0.2",
+    "redis": "~0.10.1",
+    "redis-scanstreams": "~1.0.1",
+    "terminus": "~1.0.9"
   },
   "devDependencies": {
     "grunt-contrib-watch": "~0.5.3",
