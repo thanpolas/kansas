@@ -11,7 +11,7 @@ var PolicyModel = require('../../lib/models/policy.model');
 
 // var tester = require('../lib/tester');
 
-suite.only('Token Model', function() {
+suite('Token Model', function() {
   var client;
   var tokenModel;
   var policyModel;
