@@ -35,7 +35,8 @@
     "floordate": "~1.0.2",
     "redis": "~0.10.1",
     "redis-scanstreams": "~1.0.1",
-    "terminus": "~1.0.9"
+    "terminus": "~1.0.9",
+    "collections": "~1.0.0"
   },
   "devDependencies": {
     "grunt-contrib-watch": "~0.5.3",
