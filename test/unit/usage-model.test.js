@@ -17,7 +17,7 @@ suite('Usage Model', function() {
   });
 
   setup(function() {
-    usageModel = new UsageModel(fix.client, {prefix: 'test'});
+    usageModel = new UsageModel(fix.client, {prefix: 'test:'});
   });
 
   test('usage() consumes a unit', function(done) {
