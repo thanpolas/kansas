@@ -60,7 +60,7 @@ fixtures.setupCase = function(cb) {
       ownerId: 'hip',
     }).then(function(item) {
       tokenItem = item;
-    }, done);
+    }).then(done, done);
   });
 
   tester.setup(function() {
