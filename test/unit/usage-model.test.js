@@ -15,7 +15,6 @@ suite('Usage Model', function() {
   });
 
   test('usage() consumes a unit', function(done) {
-    console.log('token:', fix.token);
     fix.usageModel.consume(fix.token).then(function(remaining) {
       assert.equal(remaining, 99);
     }).then(done, done);

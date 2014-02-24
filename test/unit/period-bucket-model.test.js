@@ -11,7 +11,7 @@ var fixtures = require('../lib/fixtures');
 
 suite('Period Bucket Model', function() {
 
-  test.only('period.getFuture() returns expected result', function() {
+  test('period.getFuture() returns expected result', function() {
     var res = period.getFuture('month', 1);
     var items = res.split('-');
     assert.lengthOf(items, 3);
