@@ -17,6 +17,17 @@ var WEBSERVER_PORT = '6699';
 
 tester.kansas = kansas;
 
+tester.setup = null;
+tester.teardown = null;
+
+if (global.setup) {
+  tester.setup = setup;
+  tester.teardown = teardown;
+} else {
+  tester.setup = beforeEach;
+  tester.teardown = afterEach;
+}
+
 /**
  * Have a Cooldown period between tests.
  *
