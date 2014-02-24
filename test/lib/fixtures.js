@@ -6,6 +6,7 @@ var tester = require('./tester');
 var Redis = require('../../lib/main/redis.main');
 var TokenModel = require('../../lib/models/token.model');
 var PolicyModel = require('../../lib/models/policy.model');
+var UsageModel = require('../../lib/models/usage.model');
 
 var fixtures = module.exports = {};
 
@@ -28,6 +29,7 @@ fixtures.setupCase = function(cb) {
   var policyModel;
   var policyId;
   var tokenItem;
+  var usageModel;
 
   tester.setup(function(done) {
     if (client) { return done(); }
@@ -40,6 +42,7 @@ fixtures.setupCase = function(cb) {
   tester.setup(function() {
     policyModel = new PolicyModel(client, {prefix: 'test:'});
     tokenModel = new TokenModel(client, {prefix: 'test:'});
+    usageModel = new UsageModel(client, {prefix: 'test:'});
   });
 
   tester.setup(function(done) {
@@ -63,11 +66,16 @@ fixtures.setupCase = function(cb) {
     }).then(done, done);
   });
 
+  tester.setup(function(done) {
+    usageModel.prePopulate().then(done, done);
+  });
+
   tester.setup(function() {
     cb({
       client: client,
       tokenModel: tokenModel,
       policyModel: policyModel,
+      usageModel: usageModel,
       policyId: policyId,
       token: tokenItem.token,
       tokenItem: tokenItem,
