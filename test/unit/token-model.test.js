@@ -9,13 +9,13 @@ var Redis = require('../../lib/main/redis.main');
 var TokenModel = require('../../lib/models/token.model');
 var PolicyModel = require('../../lib/models/policy.model');
 
-var tester = require('../lib/tester');
+// var tester = require('../lib/tester');
 
-suite('Token Model', function() {
+suite.only('Token Model', function() {
   var client;
   var tokenModel;
   var policyModel;
-  var policyId;
+  var policyItem;
 
   setup(function(done) {
     if (client) { return done(); }
@@ -26,30 +26,28 @@ suite('Token Model', function() {
     }).catch(done);
   });
   setup(function() {
-    policyModel = new PolicyModel(client, {prefix: 'test:'});
+    policyModel = new PolicyModel();
     tokenModel = new TokenModel(client, {prefix: 'test:'});
+    tokenModel.setPolicy(policyModel);
   });
 
-  setup(function(done) {
-    if (policyId) { return done(); }
-    policyModel.create({
+  setup(function() {
+    policyItem = policyModel.create({
       name: 'free',
       maxTokens: 3,
       limit: 100,
       period: 'month',
-    }).then(function(policy) {
-      policyId = policy.id;
-    }).then(done, done);
+    });
   });
 
   test('create() returned properties', function(done) {
     tokenModel.create({
-      policyId: policyId,
+      policyName: policyItem.name,
       ownerId: 'hip',
     }).then(function(item) {
       assert.isObject(item);
       assert.property(item, 'token');
-      assert.property(item, 'policyId');
+      assert.property(item, 'policyName');
       assert.property(item, 'limit');
       assert.property(item, 'period');
       assert.property(item, 'ownerId');
@@ -58,11 +56,11 @@ suite('Token Model', function() {
   });
   test('create() returned types', function(done) {
     tokenModel.create({
-      policyId: policyId,
+      policyName: policyItem.name,
       ownerId: 'hip',
     }).then(function(item) {
       assert.isString(item.token);
-      assert.isString(item.policyId);
+      assert.isString(item.policyName);
       // assert.isNumber(item.limit);
       assert.isString(item.period);
       assert.isString(item.ownerId);
@@ -71,11 +69,11 @@ suite('Token Model', function() {
   });
   test('create() returned values', function(done) {
     tokenModel.create({
-      policyId: policyId,
+      policyName: policyItem.name,
       ownerId: 'hip',
     }).then(function(item) {
       assert.lengthOf(item.token, 32);
-      assert.lengthOf(item.policyId, 8);
+      assert.equal(item.policyName, 'free');
       assert.equal(item.limit, 100);
       assert.equal(item.period, 'month');
       assert.equal(item.ownerId, 'hip');
