@@ -17,7 +17,6 @@ var PolicyModel = require('../../lib/models/policy.model');
 
 suite.only('Token Model', function() {
   var client;
-  var cleaned = false;
   var tokenModel;
   var policyModel;
   var policyItem;
@@ -31,9 +30,6 @@ suite.only('Token Model', function() {
     }).catch(done);
   });
   setup(function(done) {
-    if (cleaned) { return done(); }
-    cleaned = true;
-
     var clean = new Clean(client, {prefix: 'test'});
     clean.nuke('Yes purge all records irreversably', 'test')
       .then(done, done);
@@ -41,7 +37,7 @@ suite.only('Token Model', function() {
   setup(function() {
     if (policyModel) { return; }
     policyModel = new PolicyModel();
-    tokenModel = new TokenModel(client, {prefix: 'test:'});
+    tokenModel = new TokenModel(client, {prefix: 'test'});
     tokenModel.setPolicy(policyModel);
   });
 
@@ -149,7 +145,7 @@ suite.only('Token Model', function() {
         return tokenModel.existsAll(keys).then(function(result) {
           assert.notOk(!!result[0], 'token');
           assert.notOk(!!result[1], 'usage');
-          assert.ok(!!result[2], 'index');
+          assert.notOk(!!result[2], 'index');
           return new Promise(function(resolve, reject) {
             client.sismember(indexKey, tokenItem.token, function(err, res) {
               if (err) { return reject(); }
