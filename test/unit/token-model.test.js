@@ -6,8 +6,10 @@ var Promise = require('bluebird');
 var chai = require('chai');
 var assert = chai.assert;
 
+
 var period = require('../../lib/models/period-bucket.model');
 var Redis = require('../../lib/main/redis.main');
+var Clean = require('../../lib/db/clean.db');
 var TokenModel = require('../../lib/models/token.model');
 var PolicyModel = require('../../lib/models/policy.model');
 
@@ -15,6 +17,7 @@ var PolicyModel = require('../../lib/models/policy.model');
 
 suite.only('Token Model', function() {
   var client;
+  var cleaned = false;
   var tokenModel;
   var policyModel;
   var policyItem;
@@ -27,13 +30,21 @@ suite.only('Token Model', function() {
       done();
     }).catch(done);
   });
+  setup(function(done) {
+    if (cleaned) { return done(); };
+    cleaned = true;
+
+    var clean = new Clean(client, {prefix: 'test'});
+  });
   setup(function() {
+    if (policyModel) { return; }
     policyModel = new PolicyModel();
     tokenModel = new TokenModel(client, {prefix: 'test:'});
     tokenModel.setPolicy(policyModel);
   });
 
   setup(function() {
+    if (policyItem) { return; }
     policyItem = policyModel.create({
       name: 'free',
       maxTokens: 3,
