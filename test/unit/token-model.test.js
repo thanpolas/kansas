@@ -8,6 +8,7 @@ var assert = chai.assert;
 
 
 var period = require('../../lib/models/period-bucket.model');
+var kansasError = require('../../lib/util/error');
 var Redis = require('../../lib/main/redis.main');
 var Clean = require('../../lib/db/clean.db');
 var TokenModel = require('../../lib/models/token.model');
@@ -154,6 +155,24 @@ suite.only('Token Model', function() {
             });
           });
         });
+      }).then(done, done);
+    });
+  });
+
+  suite('MaxTokens Policy', function() {
+    test('will trigger MaxTokens error when reaching token limit', function(done) {
+      Promise.all([
+        tokenModel.set({policyName: policyItem.name, ownerId: 'hip'}),
+        tokenModel.set({policyName: policyItem.name, ownerId: 'hip'}),
+        tokenModel.set({policyName: policyItem.name, ownerId: 'hip'}),
+      ]).then(function() {
+        tokenModel.set({policyName: policyItem.name, ownerId: 'hip'})
+          .then(function() {
+            throw new Error('token.set() Should not resolve');
+          }, function(err) {
+            assert.instanceOf(err, kansasError.Policy);
+            assert.equal(err.type, kansasError.Policy.Type.MAX_TOKENS_PER_USER);
+          });
       }).then(done, done);
     });
   });
