@@ -176,4 +176,46 @@ suite.only('Token Model', function() {
       }).then(done, done);
     });
   });
+
+
+  suite('Get', function() {
+    var tokenItemOne;
+    var tokenItemTwo;
+
+    setup(function(done) {
+      tokenModel.set({
+        policyName: policyItem.name,
+        ownerId: 'hip',
+      }).then(function(item) {
+        tokenItemOne = item;
+      }).then(done, done);
+    });
+    setup(function(done) {
+      tokenModel.set({
+        policyName: policyItem.name,
+        ownerId: 'hip',
+      }).then(function(item) {
+        tokenItemTwo = item;
+      }).then(done, done);
+    });
+
+    test('Will get a token item', function(done) {
+      tokenModel.get(tokenItemOne.token).then(function(item) {
+        assert.isObject(item);
+        assert.property(item, 'token');
+        assert.property(item, 'policyName');
+        assert.property(item, 'limit');
+        assert.property(item, 'period');
+        assert.property(item, 'ownerId');
+        assert.property(item, 'createdOn');
+      }).then(done, done);
+    });
+
+    test('Will get all by owner id', function(done) {
+      tokenModel.getByOwnerIdActual('hip').then(function(items) {
+        assert.isArray(items);
+        assert.lengthOf(items, 2);
+      }).then(done, done);
+    });
+  });
 });
