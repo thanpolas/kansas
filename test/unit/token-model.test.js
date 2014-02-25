@@ -31,10 +31,12 @@ suite.only('Token Model', function() {
     }).catch(done);
   });
   setup(function(done) {
-    if (cleaned) { return done(); };
+    if (cleaned) { return done(); }
     cleaned = true;
 
     var clean = new Clean(client, {prefix: 'test'});
+    clean.nuke('Yes purge all records irreversably', 'test')
+      .then(done, done);
   });
   setup(function() {
     if (policyModel) { return; }
