@@ -101,10 +101,12 @@ suite('Token Model', function() {
       }).then(function(item) {
 
         var periodBucket = period.get('month');
+        var periodBucketFuture = period.getFuture('month');
         var indexKey = 'test:kansas:index:token:' + item.ownerId;
         var keys = [
           'test:kansas:token:' + item.token,
           'test:kansas:usage:' + periodBucket + ':' + item.token,
+          'test:kansas:usage:' + periodBucketFuture + ':' + item.token,
           indexKey,
         ];
         return tokenModel.existsAll(keys).then(function(result) {
