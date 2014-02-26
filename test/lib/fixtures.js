@@ -14,8 +14,10 @@ var fixtures = module.exports = {};
 
 /**
  * Provide some fixtures in the store:
- * - A Policy "free", maxTokens: 3, limit: 100, period: month
+ * - A Policy "free", maxTokens: 3, limit: 10, period: month
+ * - A Policy "basic", maxTokens: 10, limit: 100, period: month
  * - A Token of policy "free"
+ * - A second Token of policy "free"
  *
  * @param {Function(Object)} cb A callback with an object providing all references:
  *   @param {redis.RedisClient} client A redis client.
