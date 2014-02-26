@@ -7,6 +7,7 @@ var Clean = require('../../lib/db/clean.db');
 var Redis = require('../../lib/main/redis.main');
 var TokenModel = require('../../lib/models/token.model');
 var PolicyModel = require('../../lib/models/policy.model');
+var AccountingModel = require('../../lib/models/accounting.model');
 var UsageModel = require('../../lib/models/usage.model');
 
 var fixtures = module.exports = {};
@@ -28,8 +29,11 @@ fixtures.setupCase = function(cb) {
   var client;
   var tokenModel;
   var policyModel;
+  var accountingModel;
   var policyItem;
+  var policyItemBasic;
   var tokenItem;
+  var tokenItemTwo;
   var usageModel;
 
   tester.setup(function(done) {
@@ -50,6 +54,8 @@ fixtures.setupCase = function(cb) {
     tokenModel = new TokenModel(client, {prefix: 'test'});
     tokenModel.setPolicy(policyModel);
     usageModel = new UsageModel(client, {prefix: 'test'});
+    accountingModel = new AccountingModel(client, {prefix: 'test'});
+    accountingModel.setTokenModel(tokenModel);
   });
 
   tester.setup(function(done) {
@@ -64,11 +70,30 @@ fixtures.setupCase = function(cb) {
   });
 
   tester.setup(function(done) {
+    policyModel.create({
+      name: 'basic',
+      maxTokens: 10,
+      limit: 100,
+      period: 'month',
+    }).then(function(policy) {
+      policyItemBasic = policy;
+    }).then(done, done);
+  });
+
+  tester.setup(function(done) {
     tokenModel.create({
       policyName: policyItem.name,
       ownerId: 'hip',
     }).then(function(item) {
       tokenItem = item;
+    }).then(done, done);
+  });
+  tester.setup(function(done) {
+    tokenModel.create({
+      policyName: policyItem.name,
+      ownerId: 'hip',
+    }).then(function(item) {
+      tokenItemTwo = item;
     }).then(done, done);
   });
 
@@ -78,9 +103,12 @@ fixtures.setupCase = function(cb) {
       tokenModel: tokenModel,
       policyModel: policyModel,
       usageModel: usageModel,
+      accountingModel: accountingModel,
       policyItem: policyItem,
+      policyItemBasic: policyItemBasic,
       token: tokenItem.token,
       tokenItem: tokenItem,
+      tokenItemTwo: tokenItemTwo,
     });
   });
 };
