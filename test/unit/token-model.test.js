@@ -42,14 +42,16 @@ suite('Token Model', function() {
     tokenModel.setPolicy(policyModel);
   });
 
-  setup(function() {
-    if (policyItem) { return; }
-    policyItem = policyModel.create({
+  setup(function(done) {
+    if (policyItem) { return done(); }
+    policyModel.create({
       name: 'free',
       maxTokens: 3,
       limit: 100,
       period: 'month',
-    });
+    }).then(function(policy) {
+      policyItem = policy;
+    }).then(done, done);
   });
 
   suite('SET', function() {
