@@ -17,6 +17,7 @@ var PolicyModel = require('../../lib/models/policy.model');
 // var tester = require('../lib/tester');
 
 suite('Token Model', function() {
+  this.timeout(4000);
   var client;
   var tokenModel;
   var policyModel;

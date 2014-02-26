@@ -9,6 +9,7 @@ var assert = chai.assert;
 var fixtures = require('../lib/fixtures');
 
 suite('Usage Model', function() {
+  this.timeout(4000);
   var fix;
 
   fixtures.setupCase(function(res) {
