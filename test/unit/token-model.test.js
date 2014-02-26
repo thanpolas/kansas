@@ -47,7 +47,7 @@ suite('Token Model', function() {
     policyModel.create({
       name: 'free',
       maxTokens: 3,
-      limit: 100,
+      limit: 10,
       period: 'month',
     }).then(function(policy) {
       policyItem = policy;
@@ -89,7 +89,7 @@ suite('Token Model', function() {
       }).then(function(item) {
         assert.lengthOf(item.token, 32);
         assert.equal(item.policyName, 'free');
-        assert.equal(item.limit, 100);
+        assert.equal(item.limit, 10);
         assert.equal(item.period, 'month');
         assert.equal(item.ownerId, 'hip');
       }).then(done, done);

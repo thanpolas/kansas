@@ -56,7 +56,7 @@ fixtures.setupCase = function(cb) {
     policyModel.create({
       name: 'free',
       maxTokens: 3,
-      limit: 100,
+      limit: 10,
       period: 'month',
     }).then(function(policy) {
       policyItem = policy;
