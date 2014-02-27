@@ -1,26 +1,56 @@
 # Kansas 
 
-Rate limited API to go
+Token based rate limited API to go!
 
 [![Build Status](https://secure.travis-ci.org/thanpolas/kansas.png?branch=master)](http://travis-ci.org/thanpolas/kansas)
 
-## Getting Started
+Kansas will take care of the API usage accounting for you. It will track your API's usage using tokens with usage limits based on monthly fixed periods. You define policies, create tokens and consume them. Kansas uses Redis and works out of the box.
+
+## Installation
 
 Install the module with: `npm install kansas --save`
 
 ```javascript
 var kansas = require('kansas');
-kansas.awesome(); // "awesome"
+
+var api = kansas();
 ```
 
-## Documentation
-_(Coming soon)_
+## Getting Started
 
-## Examples
-_(Coming soon)_
+There are three parts you need to understand and you are ready to get started with Kansas.
 
-## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
+* Policies
+* Token Creation and Consumption
+* Maintenance
+
+### Policies
+
+Policies are your plans. You can create as many as you wish and you will use them when creating tokens. Each policy defines the following properties:
+
+* **Name** The policy name, i.e. "free", "basic", "advanced", "ultimate".
+* **Max Tokens** The maximum number of tokens an owner can create.
+* **Limit** The maximum number of API calls (units) per period.
+* **Period** The time period, for now it's fixed to *Monthly*, there's the ability to have daily periods too, maybe in a later version.
+
+Policies are stored in memory. After many iterations it became apparent that this is the most convenient way to work with policies. You define and maintain them inside your application, they are shared between multiple cores and exist in the memory saving on needless database reads. After all, typically an application is not expected to have more than 10 policies.
+
+### Token Creation and Consumption
+
+That's pretty straightforward, you create tokens and consume them. Each token requires an `ownerId` and a `policyName`. The `ownerId` can be any string that identifies the owning entity of the token, a user, a company, anything. The `policyName` must match a previously created policy.
+
+Each token creation will create a set of key/value pairs of various types for various reasons, i.e. indexing. Kansas will properly clean up all created keys when a token is deleted and will do so atomically.
+
+From the keys created, the ones you should care about are the *Usage* type of keys. Kansas will create the current and next period's usage keys with every token created. Which means that for every new month an operation needs to run to populate the usage keys for the next month. This brings us to the next part, *maintenance*.
+
+### Maintenance
+
+As described above, on each new month you need to populate the usage keys for the next month. Kansas didn't want to take any initiatives with that as depending on how many tokens you have registered it can be an expensive operation.
+
+So Kansas will kindly offer you a method to run yourselves so it can properly populate next month's usage keys.
+
+These are the main concepts you need to understand, now you are ready to dive into the API!
+
 
 ## Release History
 - **v0.0.1**, *TBD*
