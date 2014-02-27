@@ -1,5 +1,5 @@
 /**
- * @fileOverview API Surface tests
+ * @fileOverview API Policy tests
  */
 var chai = require('chai');
 var expect = chai.expect;
@@ -44,7 +44,7 @@ describe('Policy tests', function () {
       limit: 10,
       period: 'month',
     });
-      
+
     expect(api.policy.has('free')).to.be.true;
   });
 

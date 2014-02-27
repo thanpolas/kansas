@@ -53,11 +53,21 @@ describe('Surface tests', function () {
       // token methods
       expect(api.create).to.be.a('function', 'create');
       expect(api.set).to.be.a('function', 'set');
+      expect(api.set.before).to.be.a('function', 'set.before');
+      expect(api.set.after).to.be.a('function', 'set.after');
       expect(api.get).to.be.a('function', 'get');
+      expect(api.get.before).to.be.a('function', 'get.before');
+      expect(api.get.after).to.be.a('function', 'get.after');
       expect(api.getByOwnerId).to.be.a('function', 'getByOwnerId');
+      expect(api.getByOwnerId.before).to.be.a('function', 'getByOwnerId.before');
+      expect(api.getByOwnerId.after).to.be.a('function', 'getByOwnerId.after');
       expect(api.del).to.be.a('function', 'del');
+      expect(api.del.before).to.be.a('function', 'del.before');
+      expect(api.del.after).to.be.a('function', 'del.after');
       expect(api.changePolicy).to.be.a('function', 'changePolicy');
       expect(api.consume).to.be.a('function', 'consume');
+      expect(api.consume.before).to.be.a('function', 'consume.before');
+      expect(api.consume.after).to.be.a('function', 'consume.after');
 
       // policy methods
       expect(api.policy.create).to.be.a('function', 'policy.create');
