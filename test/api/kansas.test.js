@@ -27,9 +27,8 @@ describe('Surface tests', function () {
 
     // policy methods
     expect(api.policy.create).to.be.a('null', 'policy.create');
-    expect(api.policy.set).to.be.a('null', 'policy.set');
     expect(api.policy.get).to.be.a('null', 'policy.get');
-    expect(api.policy.del).to.be.a('null', 'policy.del');
+    expect(api.policy.has).to.be.a('null', 'policy.del');
     expect(api.policy.model).to.be.a('null', 'policy.model');
 
     // DB Maintenance

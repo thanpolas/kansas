@@ -31,7 +31,7 @@ suite('Prepopulation of usage keys', function() {
 
     test('check prepopulation works', function(done) {
       var pre = new Prepopulate(fix.client, {prefix: 'test'});
-      pre.prePopulate().then(function() {
+      pre.prepopulate().then(function() {
         var keys = fix.tokenModel.getKeys(fix.tokenItem);
         var keysTwo = fix.tokenModel.getKeys(fix.tokenItemTwo);
         var pget = Promise.promisify(fix.client.get, fix.client);
