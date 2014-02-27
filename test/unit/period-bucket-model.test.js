@@ -7,8 +7,6 @@ var assert = chai.assert;
 
 var period = require('../../lib/models/period-bucket.model');
 
-var fixtures = require('../lib/fixtures');
-
 suite('Period Bucket Model', function() {
 
   test('period.getFuture() returns expected result', function() {

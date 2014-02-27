@@ -3,9 +3,11 @@
  */
 var Promise = require('bluebird');
 var chai = require('chai');
-var kansasError = require('../../lib/util/error');
+var sinon = require('sinon');
+var floordate = require('floordate');
 var assert = chai.assert;
 
+var kansasError = require('../../lib/util/error');
 var fixtures = require('../lib/fixtures');
 
 suite('Usage Model', function() {
@@ -15,6 +17,7 @@ suite('Usage Model', function() {
   fixtures.setupCase(function(res) {
     fix = res;
   });
+
 
   test('usage() consumes a unit', function(done) {
     fix.usageModel.consume(fix.token).then(function(remaining) {
@@ -37,4 +40,32 @@ suite('Usage Model', function() {
         });
       }).then(done, done);
   });
+
+  suite('Check month period', function() {
+    var clock;
+    setup(function() {
+      var floored = floordate(Date.now(), 'month');
+      clock = sinon.useFakeTimers(floored.getTime());
+    });
+    teardown(function() {
+      clock.restore();
+    });
+    test('Will roll over to next month and reset limit', function(done) {
+      var consume = Array.apply(null, new Array(10)).map(function() {
+        return fix.token;
+      });
+
+      Promise.map(consume, fix.usageModel.consume.bind(fix.usageModel))
+        .then(function() {
+
+          // move time fwd 40days.
+          var moveFwd = 40 * 24 * 3600 * 1000;
+          clock.tick(moveFwd);
+          return fix.usageModel.consume(fix.token).then(function(remaining) {
+            assert(remaining, 9);
+          });
+        }).then(done, done);
+    });
+  });
 });
+
