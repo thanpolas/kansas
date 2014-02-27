@@ -60,26 +60,22 @@ fixtures.setupCase = function(cb) {
     accountingModel.setTokenModel(tokenModel);
   });
 
-  tester.setup(function(done) {
-    policyModel.create({
+  tester.setup(function() {
+    policyItem = policyModel.create({
       name: 'free',
       maxTokens: 3,
       limit: 10,
       period: 'month',
-    }).then(function(policy) {
-      policyItem = policy;
-    }).then(done, done);
+    });
   });
 
-  tester.setup(function(done) {
-    policyModel.create({
+  tester.setup(function() {
+    policyItemBasic = policyModel.create({
       name: 'basic',
       maxTokens: 10,
       limit: 100,
       period: 'month',
-    }).then(function(policy) {
-      policyItemBasic = policy;
-    }).then(done, done);
+    });
   });
 
   tester.setup(function(done) {
