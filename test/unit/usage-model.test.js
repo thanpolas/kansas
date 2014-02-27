@@ -30,8 +30,9 @@ suite('Usage Model', function() {
     var consume = Array.apply(null, new Array(10)).map(function() {
       return fix.token;
     });
-
-    Promise.map(consume, fix.usageModel.consume.bind(fix.usageModel))
+    Promise.map(consume, function(token) {
+      return fix.usageModel.consume(token);
+    })
       .then(function() {
         return fix.usageModel.consume(fix.token).then(function() {
           throw new Error('Should not allow to consume');
@@ -65,7 +66,9 @@ suite('Usage Model', function() {
         return fix.token;
       });
 
-      Promise.map(consume, fix.usageModel.consume.bind(fix.usageModel))
+      Promise.map(consume, function(token) {
+        return fix.usageModel.consume(token);
+      })
         .then(function() {
 
           // move time fwd 40days.
