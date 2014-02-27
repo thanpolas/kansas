@@ -66,6 +66,7 @@ suite('Token Model', function() {
         assert.property(item, 'policyName');
         assert.property(item, 'limit');
         assert.property(item, 'period');
+        assert.property(item, 'remaining');
         assert.property(item, 'ownerId');
         assert.property(item, 'createdOn');
       }).then(done, done);
@@ -77,7 +78,8 @@ suite('Token Model', function() {
       }).then(function(item) {
         assert.isString(item.token);
         assert.isString(item.policyName);
-        // assert.isNumber(item.limit);
+        assert.isNumber(item.limit);
+        assert.isNumber(item.remaining);
         assert.isString(item.period);
         assert.isString(item.ownerId);
         assert.isString(item.createdOn);
@@ -91,6 +93,7 @@ suite('Token Model', function() {
         assert.lengthOf(item.token, 32);
         assert.equal(item.policyName, 'free');
         assert.equal(item.limit, 10);
+        assert.equal(item.remaining, 10);
         assert.equal(item.period, 'month');
         assert.equal(item.ownerId, 'hip');
       }).then(done, done);
@@ -124,7 +127,6 @@ suite('Token Model', function() {
         });
       }).then(done, done);
     });
-
   });
 
   suite('Delete', function() {
@@ -211,6 +213,7 @@ suite('Token Model', function() {
         assert.property(item, 'policyName');
         assert.property(item, 'limit');
         assert.property(item, 'period');
+        assert.property(item, 'remaining');
         assert.property(item, 'ownerId');
         assert.property(item, 'createdOn');
       }).then(done, done);

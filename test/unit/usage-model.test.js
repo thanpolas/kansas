@@ -40,6 +40,16 @@ suite('Usage Model', function() {
         });
       }).then(done, done);
   });
+  test('usage() accepts units to consume', function(done) {
+    fix.usageModel.consume(fix.token, 10)
+      .then(function() {
+        return fix.usageModel.consume(fix.token).then(function() {
+          throw new Error('Should not allow to consume');
+        }).catch(function(err) {
+          assert.instanceOf(err, kansasError.UsageLimit);
+        });
+      }).then(done, done);
+  });
 
   suite('Check month period', function() {
     var clock;
