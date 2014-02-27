@@ -2,7 +2,6 @@
  * @fileOverview Token item assertions helper.
  */
 var chai = require('chai');
-var assert = chai.assert;
 
 var period = require('../../lib/models/period-bucket.model');
 
@@ -10,6 +9,7 @@ var tokenAssert = module.exports = {};
 
 /** Assert tokenItem contains the right properties */
 tokenAssert.properties = function(tokenItem) {
+  var assert = chai.assert;
   assert.isObject(tokenItem);
   assert.property(tokenItem, 'token');
   assert.property(tokenItem, 'policyName');
@@ -22,6 +22,7 @@ tokenAssert.properties = function(tokenItem) {
 
 /** Assert tokenItem props are of correct type */
 tokenAssert.types = function(tokenItem) {
+  var assert = chai.assert;
   assert.isString(tokenItem.token, 'token');
   assert.isString(tokenItem.policyName, 'policyName');
   assert.isNumber(tokenItem.limit, 'limit');
@@ -33,6 +34,7 @@ tokenAssert.types = function(tokenItem) {
 
 /** Assert tokenItem values match */
 tokenAssert.values = function(tokenItem, optCompare) {
+  var assert = chai.assert;
   var compare = optCompare || {};
   assert.lengthOf(tokenItem.token, compare.token || 32);
   assert.equal(tokenItem.policyName, compare.policyName || 'free');
@@ -40,28 +42,4 @@ tokenAssert.values = function(tokenItem, optCompare) {
   assert.equal(tokenItem.remaining, compare.remaining || 10);
   assert.equal(tokenItem.period, compare.period || 'month');
   assert.equal(tokenItem.ownerId, compare.ownerId || 'hip');
-};
-
-tokenAssert.checkKeys = function(tokenItem) {
-  var periodBucket = period.get('month');
-  var periodBucketFuture = period.getFuture('month');
-  var indexKey = 'test:kansas:index:token:' + tokenItem.ownerId;
-  var keys = [
-    'test:kansas:token:' + tokenItem.token,
-    'test:kansas:usage:' + periodBucket + ':' + tokenItem.token,
-    'test:kansas:usage:' + periodBucketFuture + ':' + tokenItem.token,
-    indexKey,
-  ];
-  return tokenModel.existsAll(keys).then(function(result) {
-    assert.ok(!!result[0], 'token');
-    assert.ok(!!result[1], 'usage');
-    assert.ok(!!result[2], 'index');
-    return new Promise(function(resolve, reject) {
-      client.sismember(indexKey, tokenItem.token, function(err, res) {
-        if (err) { return reject(); }
-        assert.ok(!!res, 'index.token');
-        resolve();
-      });
-    });
-  });
 };

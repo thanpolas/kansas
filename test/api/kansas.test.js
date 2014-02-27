@@ -64,12 +64,16 @@ describe('Surface tests', function () {
       expect(api.del).to.be.a('function', 'del');
       expect(api.del.before).to.be.a('function', 'del.before');
       expect(api.del.after).to.be.a('function', 'del.after');
-      expect(api.changePolicy).to.be.a('function', 'changePolicy');
+
+      // usage
       expect(api.consume).to.be.a('function', 'consume');
       expect(api.consume.before).to.be.a('function', 'consume.before');
       expect(api.consume.after).to.be.a('function', 'consume.after');
 
       // policy methods
+      expect(api.changePolicy).to.be.a('function', 'changePolicy');
+      expect(api.changePolicy.before).to.be.a('function', 'changePolicy.before');
+      expect(api.changePolicy.after).to.be.a('function', 'changePolicy.after');
       expect(api.policy.create).to.be.a('function', 'policy.create');
       expect(api.policy.get).to.be.a('function', 'policy.get');
       expect(api.policy.has).to.be.a('function', 'policy.del');

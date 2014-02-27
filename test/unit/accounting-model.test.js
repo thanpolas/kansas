@@ -15,7 +15,7 @@ suite('Accounting Model', function() {
     fix = res;
   });
 
-  test('setTokenModel() will alter the records', function(done) {
+  test('changePolicy() will alter the records', function(done) {
     var change = {
       ownerId: fix.tokenItem.ownerId,
       policyName: 'basic',
