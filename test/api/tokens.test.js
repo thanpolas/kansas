@@ -41,7 +41,6 @@ describe('Tokens tests', function () {
       limit: 10,
       period: 'month',
     });
-    console.log('policyItem:', policyItem);
   });
 
   describe('SET', function() {
@@ -82,13 +81,13 @@ describe('Tokens tests', function () {
           indexKey,
         ];
         return api.tokenModel.existsAll(keys).then(function(result) {
-          assert.ok(!!result[0], 'token');
-          assert.ok(!!result[1], 'usage');
-          assert.ok(!!result[2], 'index');
+          expect(!!result[0], 'token').to.be.true;
+          expect(!!result[1], 'usage').to.be.true;
+          expect(!!result[2], 'index').to.be.true;
           return new Promise(function(resolve, reject) {
             client.sismember(indexKey, item.token, function(err, res) {
               if (err) { return reject(); }
-              assert.ok(!!res, 'index.token');
+              expect(!!res, 'index.token').to.be.true;
               resolve();
             });
           });
@@ -118,14 +117,14 @@ describe('Tokens tests', function () {
           'test:kansas:usage:' + periodBucket + ':' + tokenItem.token,
           indexKey,
         ];
-        return api.existsAll(keys).then(function(result) {
-          assert.notOk(!!result[0], 'token');
-          assert.notOk(!!result[1], 'usage');
-          assert.notOk(!!result[2], 'index');
+        return api.tokenModel.existsAll(keys).then(function(result) {
+          expect(!!result[0], 'token').to.be.false;
+          expect(!!result[1], 'usage').to.be.false;
+          expect(!!result[2], 'index').to.be.false;
           return new Promise(function(resolve, reject) {
             client.sismember(indexKey, tokenItem.token, function(err, res) {
               if (err) { return reject(); }
-              assert.notOk(!!res, 'index.token');
+              expect(!!res, 'index.token').to.be.false;
               resolve();
             });
           });
@@ -145,8 +144,8 @@ describe('Tokens tests', function () {
           .then(function() {
             throw new Error('token.set() Should not resolve');
           }, function(err) {
-            assert.instanceOf(err, kansasError.Policy);
-            assert.equal(err.type, kansasError.Policy.Type.MAX_TOKENS_PER_USER);
+            expect(err).to.be.instanceOf(kansasError.Policy);
+            expect(err.type).to.equal(kansasError.Policy.Type.MAX_TOKENS_PER_USER);
           });
       }).then(done, done);
     });
@@ -188,9 +187,9 @@ describe('Tokens tests', function () {
     });
 
     it('Will get all by owner id', function(done) {
-      api.getByOwnerIdActual('hip').then(function(items) {
-        assert.isArray(items);
-        assert.lengthOf(items, 2);
+      api.getByOwnerId('hip').then(function(items) {
+        expect(items).to.be.an('array');
+        expect(items).to.have.length(2);
       }).then(done, done);
     });
   });
