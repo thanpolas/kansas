@@ -1,6 +1,6 @@
-# Kansas 
+# Kansas
 
-Token based rate limited API to go!
+*Token based rate limited API to go!*
 
 [![Build Status](https://secure.travis-ci.org/thanpolas/kansas.png?branch=master)](http://travis-ci.org/thanpolas/kansas)
 
@@ -55,6 +55,6 @@ These are the main concepts you need to understand, now you are ready to dive in
 ## Release History
 - **v0.0.1**, *TBD*
     - Big Bang
-    
+
 ## License
 Copyright (c) 2014 Thanasis Polychronakis. Licensed under the MIT license.
