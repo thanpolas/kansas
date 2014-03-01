@@ -20,7 +20,7 @@ describe('Accounting', function() {
       ownerId: fix.tokenItem.ownerId,
       policyName: 'basic',
     };
-    fix.api.changePolicy(change)
+    fix.api.policy.change(change)
       .then(function() {
         var keys = fix.api.tokenModel.getKeys(fix.tokenItem);
         var keysTwo = fix.api.tokenModel.getKeys(fix.tokenItemTwo);

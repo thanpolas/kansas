@@ -22,13 +22,13 @@ describe('Surface tests', function () {
     expect(api.get).to.be.a('null', 'get');
     expect(api.getByOwnerId).to.be.a('null', 'getByOwnerId');
     expect(api.del).to.be.a('null', 'del');
-    expect(api.changePolicy).to.be.a('null', 'changePolicy');
     expect(api.consume).to.be.a('null', 'consume');
 
     // policy methods
     expect(api.policy.create).to.be.a('null', 'policy.create');
     expect(api.policy.get).to.be.a('null', 'policy.get');
     expect(api.policy.has).to.be.a('null', 'policy.del');
+    expect(api.policy.change).to.be.a('null', 'policy.change');
     expect(api.policy.model).to.be.a('null', 'policy.model');
 
     // DB Maintenance
@@ -71,9 +71,9 @@ describe('Surface tests', function () {
       expect(api.consume.after).to.be.a('function', 'consume.after');
 
       // policy methods
-      expect(api.changePolicy).to.be.a('function', 'changePolicy');
-      expect(api.changePolicy.before).to.be.a('function', 'changePolicy.before');
-      expect(api.changePolicy.after).to.be.a('function', 'changePolicy.after');
+      expect(api.policy.change).to.be.a('function', 'policy.change');
+      expect(api.policy.change.before).to.be.a('function', 'policy.change.before');
+      expect(api.policy.change.after).to.be.a('function', 'policy.change.after');
       expect(api.policy.create).to.be.a('function', 'policy.create');
       expect(api.policy.get).to.be.a('function', 'policy.get');
       expect(api.policy.has).to.be.a('function', 'policy.del');
