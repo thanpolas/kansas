@@ -31,6 +31,20 @@ fixtures.setupCase = function(cb) {
   var tokenItem;
   var tokenItemTwo;
 
+  var policyFree = {
+    name: 'free',
+    maxTokens: 3,
+    limit: 10,
+    period: 'month',
+  };
+
+  var policyBasic = {
+    name: 'basic',
+    maxTokens: 10,
+    limit: 100,
+    period: 'month',
+  };
+
   tester.setup(function(done) {
     if (client) { return done(); }
     var redis = new Redis();
@@ -51,21 +65,11 @@ fixtures.setupCase = function(cb) {
   });
 
   tester.setup(function() {
-    policyItem = api.policy.create({
-      name: 'free',
-      maxTokens: 3,
-      limit: 10,
-      period: 'month',
-    });
+    policyItem = api.policy.create(policyFree);
   });
 
   tester.setup(function() {
-    policyItemBasic = api.policy.create({
-      name: 'basic',
-      maxTokens: 10,
-      limit: 100,
-      period: 'month',
-    });
+    policyItemBasic = api.policy.create(policyBasic);
   });
 
   tester.setup(function(done) {

@@ -59,7 +59,7 @@ describe('Events', function() {
       expect(change.ownerId).to.equal('hip');
       expect(change.policyName).to.equal('free');
 
-      policyAssert.all(policy);
+      policyAssert.all(policy, fix.policyItemBasic);
       done();
     });
 
