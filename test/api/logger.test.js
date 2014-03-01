@@ -1,14 +1,12 @@
 /**
  * @fileOverview Kansas logger facilities.
  */
-var Promise = require('bluebird');
 var chai = require('chai');
 var expect = chai.expect;
 
 var kansas = require('../..');
-var fixtures = require('../lib/fixtures-api');
 
-describe.only('Logger', function() {
+describe('Logger', function() {
   this.timeout(4000);
 
   it('Will emit "message" events', function(done) {
