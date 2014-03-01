@@ -7,7 +7,7 @@ var expect = chai.expect;
 
 var fixtures = require('../lib/fixtures-api');
 
-describe('Logger', function() {
+describe.only('Logger', function() {
   this.timeout(4000);
   var fix;
 
