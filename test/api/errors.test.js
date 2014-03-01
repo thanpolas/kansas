@@ -28,7 +28,41 @@ describe.only('Errors', function() {
 
     api.connect().catch(function(err) {
       expect(err).to.be.instanceOf(error.Database);
+      expect(err.type).to.equal(error.Database.Type.REDIS_CONNECTION);
     }).then(done, done);
 
+  });
+
+  describe('Token Create Errors', function () {
+    it('will produce a Validation error if ownerId is not provided', function (done) {
+      fix.item.create({
+        policyName: 'free',
+      }).catch(function(err) {
+        expect(err).to.be.instanceOf(error.Validation);
+      }).then(done, done);
+    });
+    it('will produce a Validation error if ownerId is empty string', function (done) {
+      fix.item.create({
+        ownerId: '',
+        policyName: 'free',
+      }).catch(function(err) {
+        expect(err).to.be.instanceOf(error.Validation);
+      }).then(done, done);
+    });
+    it('will produce a Validation error if policyName is not provided', function (done) {
+      fix.item.create({
+        ownerId: 'hip',
+      }).catch(function(err) {
+        expect(err).to.be.instanceOf(error.Validation);
+      }).then(done, done);
+    });
+    it('will produce a Validation error if policyName does not exist', function (done) {
+      fix.item.create({
+        ownerId: 'hip',
+        policyName: 'troll',
+      }).catch(function(err) {
+        expect(err).to.be.instanceOf(error.Validation);
+      }).then(done, done);
+    });
   });
 });
