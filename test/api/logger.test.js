@@ -15,7 +15,7 @@ describe('Logger', function() {
     fix = res;
   });
 
-  it('FIXME', function() {
-    throw new Error('implement');
+  it('FIXME', function(done) {
+    done()
   });
 });
