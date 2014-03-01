@@ -35,33 +35,33 @@ describe.only('Errors', function() {
 
   describe('Token Create Errors', function () {
     it('will produce a Validation error if ownerId is not provided', function (done) {
-      fix.item.create({
+      fix.api.create({
         policyName: 'free',
       }).catch(function(err) {
         expect(err).to.be.instanceOf(error.Validation);
       }).then(done, done);
     });
     it('will produce a Validation error if ownerId is empty string', function (done) {
-      fix.item.create({
+      fix.api.create({
         ownerId: '',
         policyName: 'free',
       }).catch(function(err) {
         expect(err).to.be.instanceOf(error.Validation);
       }).then(done, done);
     });
-    it('will produce a Validation error if policyName is not provided', function (done) {
-      fix.item.create({
+    it('will produce a Policy error if policyName is not provided', function (done) {
+      fix.api.create({
         ownerId: 'hip',
       }).catch(function(err) {
-        expect(err).to.be.instanceOf(error.Validation);
+        expect(err).to.be.instanceOf(error.Policy);
       }).then(done, done);
     });
-    it('will produce a Validation error if policyName does not exist', function (done) {
-      fix.item.create({
+    it('will produce a Policy error if policyName does not exist', function (done) {
+      fix.api.create({
         ownerId: 'hip',
         policyName: 'troll',
       }).catch(function(err) {
-        expect(err).to.be.instanceOf(error.Validation);
+        expect(err).to.be.instanceOf(error.Policy);
       }).then(done, done);
     });
   });
