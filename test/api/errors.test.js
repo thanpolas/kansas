@@ -6,16 +6,29 @@ var chai = require('chai');
 var expect = chai.expect;
 
 var fixtures = require('../lib/fixtures-api');
+var kansas = require('../..');
 
-describe('Errors', function() {
+describe.only('Errors', function() {
   this.timeout(4000);
   var fix;
+  var error;
 
   fixtures.setupCase(function(res) {
     fix = res;
+    error = fix.api.error;
   });
 
-  it('FIXME', function() {
-    throw new Error('implement');
+  it('Will produce a database error if redis credentials are wrong', function(done) {
+    var api = kansas({
+      redis: {
+        host: 'troll',
+        port: 0,
+      }
+    });
+
+    api.connect().catch(function(err) {
+      expect(err).to.be.instanceOf(error.Database);
+    }).then(done, done);
+
   });
 });
