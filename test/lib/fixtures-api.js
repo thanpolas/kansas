@@ -54,7 +54,10 @@ fixtures.setupCase = function(cb) {
     }).catch(done);
   });
   beforeEach(function(done) {
-    api = kansas({prefix: 'test'});
+    api = kansas({
+      prefix: 'test',
+      logging: false,
+    });
     api.connect().then(done, done);
   });
 

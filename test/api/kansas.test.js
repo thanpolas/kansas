@@ -49,7 +49,7 @@ describe('Surface tests', function () {
   });
 
   it('should have the expected methods after connection', function(done) {
-    var api = kansas();
+    var api = kansas({logging: false});
     api.connect().then(function() {
       expect(api.conn).to.be.an('Object', 'conn');
       expect(api.client).to.be.a('Object', 'client');

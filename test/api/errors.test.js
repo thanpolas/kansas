@@ -23,7 +23,8 @@ describe('Errors', function() {
       redis: {
         host: 'troll',
         port: 0,
-      }
+      },
+      logging: false,
     });
 
     api.connect().catch(function(err) {
