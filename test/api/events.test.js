@@ -11,7 +11,7 @@ var policyAssert = require('../lib/policy-assertions.js');
 
 function noop() {}
 
-describe.only('Events', function() {
+describe('Events', function() {
   this.timeout(4000);
   var fix;
 
