@@ -8,7 +8,7 @@ var expect = chai.expect;
 var fixtures = require('../lib/fixtures-api');
 var kansas = require('../..');
 
-describe.only('Errors', function() {
+describe('Errors', function() {
   this.timeout(4000);
   var fix;
   var error;
@@ -63,6 +63,26 @@ describe.only('Errors', function() {
       }).catch(function(err) {
         expect(err).to.be.instanceOf(error.Policy);
       }).then(done, done);
+    });
+  });
+
+  describe('Consume Errors', function () {
+    it('will produce a TokenNotExists error when token does not exist', function (done) {
+      fix.api.consume('troll')
+        .catch(function(err) {
+          expect(err).to.be.instanceOf(error.TokenNotExists);
+        })
+        .then(done, done);
+    });
+    it('will produce a UsageLimit error when limit is exceeded', function (done) {
+      fix.api.consume(fix.token, 10)
+        .then(function() {
+          fix.api.consume(fix.token)
+          .catch(function(err) {
+            expect(err).to.be.instanceOf(error.UsageLimit);
+          })
+          .then(done, done);
+        });
     });
   });
 });
