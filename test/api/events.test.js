@@ -9,7 +9,7 @@ var fixtures = require('../lib/fixtures-api');
 var tokenAssert = require('../lib/token-assertions.js');
 var policyAssert = require('../lib/policy-assertions.js');
 
-describe('Events', function() {
+describe.only('Events', function() {
   this.timeout(4000);
   var fix;
 
