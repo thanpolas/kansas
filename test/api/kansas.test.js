@@ -14,7 +14,10 @@ describe('Surface tests', function () {
     var api = kansas();
     expect(api.connect).to.be.a('function', 'connect()');
     expect(api.setup).to.be.a('function', 'setup()');
+    expect(api.on).to.be.a('function', 'on()');
+
     expect(api.conn).to.be.a('null', 'conn');
+    expect(api.client).to.be.a('null', 'client');
 
     // token methods
     expect(api.create).to.be.a('null', 'create');
@@ -49,6 +52,7 @@ describe('Surface tests', function () {
     var api = kansas();
     api.connect().then(function() {
       expect(api.conn).to.be.an('Object', 'conn');
+      expect(api.client).to.be.a('Object', 'client');
 
       // token methods
       expect(api.create).to.be.a('function', 'create');
