@@ -9,6 +9,8 @@ var fixtures = require('../lib/fixtures-api');
 var tokenAssert = require('../lib/token-assertions.js');
 var policyAssert = require('../lib/policy-assertions.js');
 
+function noop() {}
+
 describe.only('Events', function() {
   this.timeout(4000);
   var fix;
@@ -57,13 +59,17 @@ describe.only('Events', function() {
       expect(change).to.be.an('Object');
       expect(policy).to.be.an('Object');
       expect(change.ownerId).to.equal('hip');
-      expect(change.policyName).to.equal('free');
+      expect(change.policyName).to.equal('basic');
 
       policyAssert.all(policy, fix.policyItemBasic);
       done();
     });
 
-    fix.api.consume(fix.token);
+    var change = {
+      ownerId: fix.tokenItem.ownerId,
+      policyName: 'basic',
+    };
+    fix.api.policy.change(change);
   });
 
   it('Emits a Max Tokens event', function(done) {
@@ -82,10 +88,11 @@ describe.only('Events', function() {
     fix.api.create({
       ownerId: 'hip',
       policyName: 'free',
-    });
-    fix.api.create({
-      ownerId: 'hip',
-      policyName: 'free',
+    }).then(function() {
+      fix.api.create({
+        ownerId: 'hip',
+        policyName: 'free',
+      }).catch(noop);
     });
   });
 });

@@ -16,10 +16,10 @@ policyAssert.all = function(item, expected) {
 policyAssert.properties = function(item) {
   var assert = chai.assert;
   assert.isObject(item);
-  assert.property(item, 'prop: name');
-  assert.property(item, 'prop: maxTokens');
-  assert.property(item, 'prop: limit');
-  assert.property(item, 'prop: period');
+  assert.property(item, 'name', 'prop: name');
+  assert.property(item, 'maxTokens', 'prop: maxTokens');
+  assert.property(item, 'limit', 'prop: limit');
+  assert.property(item, 'period', 'prop: period');
 };
 
 /** Assert props are of correct type */
@@ -36,7 +36,7 @@ policyAssert.values = function(item, optExpected) {
   var assert = chai.assert;
   var expected = optExpected || {};
   assert.equal(item.name, expected.name || 'free');
-  assert.equal(item.maxTokens, expected.limit || 3);
+  assert.equal(item.maxTokens, expected.maxTokens || 3);
   assert.equal(item.limit, expected.limit || 10);
   assert.equal(item.period, expected.period || 'month');
 };
