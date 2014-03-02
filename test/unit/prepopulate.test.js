@@ -29,7 +29,7 @@ suite('Prepopulation of usage keys', function() {
       clock.restore();
     });
 
-    test.only('check prepopulation works', function(done) {
+    test('check prepopulation works', function(done) {
       var pre = new Prepopulate(fix.client, {prefix: 'test'});
       pre.prepopulate().then(function() {
         var keys = fix.tokenModel.getKeys(fix.tokenItem);
