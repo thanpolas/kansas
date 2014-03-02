@@ -61,6 +61,8 @@ These are the main concepts you need to understand, now you are ready to dive in
 
 ## Release History
 
+- **v0.1.5**, *02 Mar 2014*
+    - Fix bug with prepopulate.
 - **v0.1.4**, *02 Mar 2014*
     - Upgrade all packages to latest.
 - **v0.1.3**, *02 Mar 2014*
