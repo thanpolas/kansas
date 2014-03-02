@@ -26,12 +26,9 @@
     "logg": "~0.2.2",
     "cip": "~0.2.1",
     "middlewarify": "~0.3.4",
-    "crude": "~0.3.5",
     "bluebird": "~1.0.5",
     "lodash": "~2.4.1",
     "node-entity": "~0.2.3",
-    "slug": "~0.4.2",
-    "validator": "~3.3.0",
     "floordate": "~1.0.2",
     "redis": "~0.10.1",
     "redis-scanstreams": "~1.0.1",
@@ -43,7 +40,6 @@
     "load-grunt-tasks": "~0.3.0",
     "mocha": "~1.17.1",
     "grunt-mocha-test": "~0.9.0",
-    "supertest": "~0.9.0",
     "grunt-cli": "~0.1.13",
     "grunt-express-server": "~0.4.13",
     "grunt-parallel": "~0.3.1",
@@ -51,10 +47,6 @@
     "grunt": "~0.4.2",
     "chai": "~1.9.0",
     "sinon": "~1.8.2",
-    "grunt-services": "0.0.1",
-    "connect": "~2.13.0",
-    "express": "~3.4.8",
-    "connect-redis": "~1.4.7",
-    "connect-flash": "~0.1.1"
+    "grunt-services": "0.0.1"
   }
 }
