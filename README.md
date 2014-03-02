@@ -59,8 +59,8 @@ These are the main concepts you need to understand, now you are ready to dive in
 
 [Read the full documentation][docs]
 
-
 ## Release History
+
 - **v0.1.3**, *02 Mar 2014*
     - Better connection management to redis
     - Protect against older versions or Redis that wont work with Kansas (require 2.8.x+)
@@ -70,6 +70,7 @@ These are the main concepts you need to understand, now you are ready to dive in
     - Big Bang
 
 ## License
+
 Copyright (c) 2014 Thanasis Polychronakis. Licensed under the MIT license.
 
 [docs]: https://github.com/thanpolas/kansas-docs/blob/master/README.md
