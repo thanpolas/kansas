@@ -47,6 +47,7 @@
     "grunt": "~0.4.2",
     "chai": "~1.9.0",
     "sinon": "~1.8.2",
-    "grunt-services": "0.0.1"
+    "grunt-services": "0.0.1",
+    "grunt-release": "~0.7.0"
   }
 }
