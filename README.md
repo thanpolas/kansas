@@ -10,7 +10,11 @@ Kansas will take care of the API usage accounting for you. It will track your AP
 
 ## Installation
 
-Install the module with: `npm install kansas --save`
+Install the module from npm 
+
+```
+npm install kansas --save
+```
 
 ```javascript
 var kansas = require('kansas');
