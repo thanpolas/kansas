@@ -61,6 +61,9 @@ These are the main concepts you need to understand, now you are ready to dive in
 
 
 ## Release History
+- **v0.1.3**, *02 Mar 2014*
+    - Better connection management to redis
+    - Protect against older versions or Redis that wont work with Kansas (require 2.8.x+)
 - **v0.1.2**, *02 Mar 2014*
     - More defence on prepopulate method.
 - **v0.1.0**, *02 Mar 2014*
