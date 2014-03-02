@@ -6,6 +6,8 @@
 
 Kansas will take care of the API usage accounting for you. It will track your API's usage using tokens with usage limits based on monthly fixed periods. You define policies, create tokens and consume them. Kansas uses Redis and works out of the box.
 
+[Read the full documentation][docs]
+
 ## Installation
 
 Install the module with: `npm install kansas --save`
@@ -51,10 +53,14 @@ So Kansas will kindly offer you a method to run yourselves so it can properly po
 
 These are the main concepts you need to understand, now you are ready to dive into the API!
 
+[Read the full documentation][docs]
+
 
 ## Release History
-- **v0.0.1**, *TBD*
+- **v0.0.1**, *02 Mar 2014*
     - Big Bang
 
 ## License
 Copyright (c) 2014 Thanasis Polychronakis. Licensed under the MIT license.
+
+[docs]: https://github.com/thanpolas/kansas-docs/blob/master/README.md
