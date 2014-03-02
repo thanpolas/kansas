@@ -61,7 +61,7 @@ These are the main concepts you need to understand, now you are ready to dive in
 
 
 ## Release History
-- **v0.1.1**, *02 Mar 2014*
+- **v0.1.2**, *02 Mar 2014*
     - More defence on prepopulate method.
 - **v0.1.0**, *02 Mar 2014*
     - Big Bang
