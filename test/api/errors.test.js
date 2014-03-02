@@ -24,7 +24,7 @@ describe('Errors', function() {
         host: 'troll',
         port: 0,
       },
-      logging: false,
+      logging: true,
     });
 
     api.connect().catch(function(err) {

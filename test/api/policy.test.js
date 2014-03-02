@@ -9,7 +9,7 @@ var kansas = require('../..');
 describe('Policy tests', function () {
   var api;
   beforeEach(function(done) {
-    api = kansas({logging: false});
+    api = kansas({logging: true});
     api.connect().then(done, done);
   });
   it('should create a policy', function() {

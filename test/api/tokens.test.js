@@ -20,7 +20,7 @@ describe('Tokens tests', function () {
   beforeEach(function(done) {
     api = kansas({
       prefix: 'test',
-      logging: false,
+      logging: true,
     });
     api.connect().then(done, done);
   });

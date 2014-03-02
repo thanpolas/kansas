@@ -14,11 +14,11 @@ describe('Logger', function() {
     api.on('message', function(msgObj) {
       // Sample Object
       //
-      // { 
+      // {
       //   level: 200,
       //   name: 'kansas.main.redis',
       //   meta: undefined,
-      //   rawArgs: 
+      //   rawArgs:
       //    [ 'getClient() :: Creating client using host, port:',
       //      'localhost',
       //      6379 ],
@@ -35,7 +35,7 @@ describe('Logger', function() {
   });
 
   it('Will not emit any "message" events if logging is off', function(done) {
-    var api = kansas({logging: false});
+    var api = kansas({logging: true});
     api.on('message', done);
     api.connect().then(done.bind(null, null), done);
   });
