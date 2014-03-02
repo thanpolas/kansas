@@ -32,7 +32,6 @@ suite('Prepopulation of usage keys', function() {
     test('check prepopulation works', function(done) {
       var pre = new Prepopulate(fix.client, {prefix: 'test'});
       pre.prepopulate().then(function() {
-        console.log('prepopulation done!');
         var keys = fix.tokenModel.getKeys(fix.tokenItem);
         var keysTwo = fix.tokenModel.getKeys(fix.tokenItemTwo);
         var pget = Promise.promisify(fix.client.get, fix.client);
@@ -42,8 +41,6 @@ suite('Prepopulation of usage keys', function() {
           pget(keysTwo.usage),
           pget(keysTwo.usageFuture),
         ]).then(function(result) {
-          console.log('...and got all results!', result);
-
           assert.equal(result[0], 10, 'usage one');
           assert.equal(result[1], 10, 'usage one future');
           assert.equal(result[2], 10, 'usage two');
