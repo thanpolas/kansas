@@ -2,7 +2,7 @@
   "name": "kansas",
   "version": "0.1.0",
   "main": "./",
-  "description": "Rate limited API to go",
+  "description": "Usage limited API to go",
   "homepage": "https://github.com/thanpolas/kansas",
   "bugs": "https://github.com/thanpolas/kansas/issues",
   "author": {

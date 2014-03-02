@@ -1,6 +1,6 @@
 # Kansas
 
-*Token based rate limited API to go!*
+*Usage limited API to go!*
 
 [![Build Status](https://secure.travis-ci.org/thanpolas/kansas.png?branch=master)](http://travis-ci.org/thanpolas/kansas)
 
