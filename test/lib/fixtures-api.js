@@ -8,6 +8,17 @@ var Redis = require('../../lib/main/redis.main');
 
 var fixtures = module.exports = {};
 
+var LOGGING = true;
+/**
+ *   SEVERE: 1000
+ *   WARN:   800
+ *   INFO:   600
+ *   FINE:   400
+ *   FINER:  200
+ *   FINEST: 100
+ */
+var LOG_LEVEL = 0;
+
 /**
  * Provide some fixtures in the store:
  * - A Policy "free", maxTokens: 3, limit: 10, period: month
@@ -56,6 +67,8 @@ fixtures.setupCase = function(cb) {
   beforeEach(function(done) {
     api = kansas({
       prefix: 'test',
+      logging: LOGGING,
+      logLevel: LOG_LEVEL,
     });
     api.connect().then(done, done);
   });

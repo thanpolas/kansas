@@ -12,9 +12,10 @@ var fixtures = require('../lib/fixtures-api');
 describe('Prepopulation of usage keys', function() {
   this.timeout(4000);
   var fix;
-
+  var log;
   fixtures.setupCase(function(res) {
     fix = res;
+    log = fix.api.logger.getLogger('kansas.test.api.prepopulate');
   });
 
   describe('Skip one month ahead', function() {
@@ -23,13 +24,17 @@ describe('Prepopulation of usage keys', function() {
       var floored = floordate(Date.now(), 'month');
       var moveFwd = 40 * 24 * 3600 * 1000;
       clock = sinon.useFakeTimers(floored.getTime() + moveFwd);
+      log.fine('beforeEach() :: Clock reset');
     });
     afterEach(function() {
       clock.restore();
     });
 
     it('check prepopulation works', function(done) {
+      log.fine('test() :: starting prepopulate test...');
+
       fix.api.db.prepopulate().then(function() {
+        log.fine('test() :: prepopulate() done!');
         var keys = fix.api.tokenModel.getKeys(fix.tokenItem);
         var keysTwo = fix.api.tokenModel.getKeys(fix.tokenItemTwo);
         var pget = Promise.promisify(fix.client.get, fix.client);

@@ -10,8 +10,7 @@ describe('Logger', function() {
   this.timeout(4000);
 
   it('Will emit "message" events', function(done) {
-    var api = kansas({console: false});
-    api.on('message', function(msgObj) {
+    function onMessage(msgObj) {
       // Sample Object
       //
       // {
@@ -30,13 +29,21 @@ describe('Logger', function() {
       expect(msgObj).to.have.property('name');
       expect(msgObj).to.have.property('date');
       expect(msgObj).to.have.property('message');
-    });
-    api.connect().then(done.bind(null, null), done);
+    }
+    var api = kansas({console: false});
+    api.on('message', onMessage);
+    api.connect().then(function() {
+      api.removeListener('message', onMessage);
+      done();
+    }).catch(done);
   });
 
   it('Will not emit any "message" events if logging is off', function(done) {
-    var api = kansas({logging: true});
+    var api = kansas({logging: false});
     api.on('message', done);
-    api.connect().then(done.bind(null, null), done);
+    api.connect().then(function() {
+      api.removeListener('message', done);
+      done();
+    }).catch(done);
   });
 });
