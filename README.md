@@ -61,6 +61,8 @@ These are the main concepts you need to understand, now you are ready to dive in
 
 ## Release History
 
+- **v0.1.6**, *03 Mar 2014*
+    - Better conditional for determining usage of DECR vs DECRBY
 - **v0.1.5**, *02 Mar 2014*
     - Fix bug with prepopulate.
 - **v0.1.4**, *02 Mar 2014*
