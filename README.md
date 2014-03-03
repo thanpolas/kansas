@@ -8,6 +8,8 @@ Kansas will take care of the API usage accounting for you. It will track your AP
 
 [Read the full documentation][docs]
 
+If you plan on using Kansas with Express then you need to [check out the kansas-express package](https://github.com/thanpolas/kansas-express).
+
 ## Installation
 
 Install the module from npm 
