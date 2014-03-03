@@ -3,6 +3,7 @@
  */
 
 var tester = require('./tester');
+var logger = require('../../lib/main/logger.main');
 var Clean = require('../../lib/db/clean.db');
 var Redis = require('../../lib/main/redis.main');
 var TokenModel = require('../../lib/models/token.model');
@@ -11,6 +12,18 @@ var AccountingModel = require('../../lib/models/accounting.model');
 var UsageModel = require('../../lib/models/usage.model');
 
 var fixtures = module.exports = {};
+
+var LOGGING = true;
+var LOG_LEVEL = 0;
+
+
+logger.init();
+if (!LOGGING) {
+  logger.mute();
+} else {
+  logger.unmute();
+}
+logger.setLevel(LOG_LEVEL);
 
 /**
  * Provide some fixtures in the store:
