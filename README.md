@@ -63,6 +63,12 @@ These are the main concepts you need to understand, now you are ready to dive in
 
 ## Release History
 
+- **v0.1.7**, *03 Mar 2014*
+    - Master switch for logging on testing.
+    - Optimize prepopulation method.
+    - Introduce logger unmute and addConsole
+    - Expose "removeListener" method
+    - export logger
 - **v0.1.6**, *03 Mar 2014*
     - Better conditional for determining usage of DECR vs DECRBY
 - **v0.1.5**, *02 Mar 2014*
