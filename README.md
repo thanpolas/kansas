@@ -63,6 +63,8 @@ These are the main concepts you need to understand, now you are ready to dive in
 
 ## Release History
 
+- **v0.1.8**, *08 Feb 2014*
+    - Improve Logging piping.
 - **v0.1.7**, *03 Mar 2014*
     - Master switch for logging on testing.
     - Optimize prepopulation method, fix context bug, add more debug logging.
