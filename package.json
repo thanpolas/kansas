@@ -25,14 +25,14 @@
   "dependencies": {
     "logg": "~0.2.2",
     "cip": "~0.2.1",
-    "middlewarify": "~0.3.6",
-    "bluebird": "~1.0.7",
+    "middlewarify": "~0.3.7",
+    "bluebird": "~1.0.8",
     "lodash": "~2.4.1",
     "floordate": "~1.0.2",
     "redis": "~0.10.1",
     "redis-scanstreams": "~1.0.1",
     "terminus": "~1.0.9",
-    "collections": "~1.0.0"
+    "collections": "~1.0.1"
   },
   "devDependencies": {
     "grunt-contrib-watch": "~0.5.3",
@@ -43,9 +43,9 @@
     "grunt-express-server": "~0.4.13",
     "grunt-parallel": "~0.3.1",
     "grunt-open": "~0.2.3",
-    "grunt": "~0.4.2",
+    "grunt": "~0.4.3",
     "chai": "~1.9.0",
-    "sinon": "~1.8.2",
+    "sinon": "~1.9.0",
     "grunt-services": "0.0.1",
     "grunt-release": "~0.7.0"
   }
