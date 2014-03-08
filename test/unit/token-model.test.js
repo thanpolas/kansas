@@ -76,6 +76,15 @@ suite('Token Model', function() {
       }).then(tokenAssert.values)
         .then(done, done);
     });
+    test('use custom token', function(done) {
+      tokenModel.set({
+        policyName: policyItem.name,
+        ownerId: 'hip',
+        token: 'custom',
+      }).then(function(tokenItem) {
+        assert.equal(tokenItem.token, 'custom');
+      }).then(done, done);
+    });
     test('Check index and bucket keys created', function(done) {
       tokenModel.set({
         policyName: policyItem.name,
