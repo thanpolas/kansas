@@ -63,6 +63,9 @@ These are the main concepts you need to understand, now you are ready to dive in
 
 ## Release History
 
+- **v0.1.10**, *09 Feb 2014*
+    - Fix create token duplicate check bug.
+    - Fix policy period to month.
 - **v0.1.9**, *08 Feb 2014*
     - Allow for creation of custom tokens.
     - Will now check if token exists before creating it.
