@@ -63,6 +63,8 @@ These are the main concepts you need to understand, now you are ready to dive in
 
 ## Release History
 
+- **v0.1.11**, *09 Feb 2014*
+    - Better error message on Redis version incompatibility.
 - **v0.1.10**, *09 Feb 2014*
     - Fix policy period to month.
     - Allow for creation of custom tokens.
