@@ -23,10 +23,10 @@
     "test": "./node_modules/.bin/mocha -b test/unit -u tdd  -R spec; ./node_modules/.bin/mocha -b test/api -u bdd  -R spec"
   },
   "dependencies": {
-    "logg": "~0.2.2",
+    "logg": "~0.3.0",
     "cip": "~0.2.1",
     "middlewarify": "~0.3.7",
-    "bluebird": "~1.0.8",
+    "bluebird": "~1.1.0",
     "lodash": "~2.4.1",
     "floordate": "~1.0.2",
     "redis": "~0.10.1",
