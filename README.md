@@ -63,7 +63,7 @@ These are the main concepts you need to understand, now you are ready to dive in
 
 ## Release History
 
-- **v0.1.14**, *29 Feb 2014*
+- **v0.1.15**, *29 Feb 2014*
     - More defence on db prepopulation for corrupt records
 - **v0.1.12**, *11 Feb 2014*
     - Upgraded to logg 0.3.0, enables multi-package logger instances.
