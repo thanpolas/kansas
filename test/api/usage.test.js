@@ -10,7 +10,7 @@ var expect = chai.expect;
 var kansasError = require('../../lib/util/error');
 var fixtures = require('../lib/fixtures-api');
 
-describe('Usage Model', function() {
+describe.skip('Usage Model', function() {
   this.timeout(4000);
 
   fixtures.setupCase();

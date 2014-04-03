@@ -49,11 +49,11 @@ fixtures.setupCase = function(optCb) {
     limit: 100,
   };
 
-  var policyCount = {
-    name: 'countPolicy',
-    maxTokens: 20,
-    count: true,
-  };
+  // var policyCount = {
+  //   name: 'countPolicy',
+  //   maxTokens: 20,
+  //   count: true,
+  // };
 
   tester.setup(function(done) {
     if (this.client) { return done(); }
@@ -82,7 +82,7 @@ fixtures.setupCase = function(optCb) {
   tester.setup(function() {
     this.policyItem = this.kansas.policy.create(policyFree);
     this.policyItemBasic = this.kansas.policy.create(policyBasic);
-    this.policyCount = this.kansas.policy.create(policyCount);
+    // this.policyCount = this.kansas.policy.create(policyCount);
   });
 
   tester.setup(function(done) {
@@ -105,15 +105,15 @@ fixtures.setupCase = function(optCb) {
     }).then(done, done);
   });
 
-  tester.setup(function(done) {
-    var self = this;
-    this.kansas.create({
-      policyName: this.policyCount.name,
-      ownerId: 'hip',
-    }).then(function(item) {
-      self.tokenItemCount = item;
-    }).then(done, done);
-  });
+  // tester.setup(function(done) {
+  //   var self = this;
+  //   this.kansas.create({
+  //     policyName: this.policyCount.name,
+  //     ownerId: 'hop',
+  //   }).then(function(item) {
+  //     self.tokenItemCount = item;
+  //   }).then(done, done);
+  // });
 
   tester.setup(function() {
     cb({

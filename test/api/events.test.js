@@ -1,7 +1,6 @@
 /**
  * @fileOverview Events emitted by Kansas.
  */
-var Promise = require('bluebird');
 var chai = require('chai');
 var expect = chai.expect;
 
@@ -13,67 +12,66 @@ function noop() {}
 
 describe('Events', function() {
   this.timeout(4000);
-  var fix;
 
-  fixtures.setupCase(function(res) {
-    fix = res;
-  });
+  fixtures.setupCase();
 
   it('Emits a token create event', function(done) {
-    fix.api.on('create', function(tokenItem) {
+    this.kansas.on('create', function(tokenItem) {
       tokenAssert.properties(tokenItem);
       tokenAssert.types(tokenItem);
       tokenAssert.values(tokenItem);
       done();
     });
 
-    fix.api.create({
+    this.kansas.create({
       ownerId: 'hip',
       policyName: 'free',
     });
   });
   it('Emits a token delete event', function(done) {
-    fix.api.on('delete', function(tokenItem) {
+    this.kansas.on('delete', function(tokenItem) {
       tokenAssert.properties(tokenItem);
       tokenAssert.types(tokenItem);
       tokenAssert.values(tokenItem);
       done();
     });
 
-    fix.api.del(fix.token);
+    this.kansas.del(this.token);
   });
 
   it('Emits a token consume event', function(done) {
-    fix.api.on('consume', function(token, consumed, remaining) {
-      expect(token).to.equal(fix.token);
+    var self = this;
+    this.kansas.on('consume', function(token, consumed, remaining) {
+      expect(token).to.equal(self.token);
       expect(consumed).to.equal(1);
       expect(remaining).to.equal(9);
       done();
     });
 
-    fix.api.consume(fix.token);
+    this.kansas.consume(this.token);
   });
 
   it('Emits a Policy Change event', function(done) {
-    fix.api.on('policyChange', function(change, policy) {
+    var self = this;
+    this.kansas.on('policyChange', function(change, policy) {
       expect(change).to.be.an('Object');
       expect(policy).to.be.an('Object');
       expect(change.ownerId).to.equal('hip');
       expect(change.policyName).to.equal('basic');
 
-      policyAssert.all(policy, fix.policyItemBasic);
+      policyAssert.all(policy, self.policyItemBasic);
       done();
     });
 
     var change = {
-      ownerId: fix.tokenItem.ownerId,
+      ownerId: this.tokenItem.ownerId,
       policyName: 'basic',
     };
-    fix.api.policy.change(change);
+    this.kansas.policy.change(change);
   });
 
   it('Emits a Max Tokens event', function(done) {
-    fix.api.on('maxTokens', function(opts, maxTokens) {
+    this.kansas.on('maxTokens', function(opts, maxTokens) {
       expect(opts).to.be.an('Object');
       expect(opts.ownerId).to.equal('hip');
       expect(opts.policyName).to.equal('free');
@@ -81,15 +79,17 @@ describe('Events', function() {
       done();
     });
 
-    fix.api.create({
+    this.kansas.create({
       ownerId: 'hip',
       policyName: 'free',
     });
-    fix.api.create({
+
+    var self = this;
+    this.kansas.create({
       ownerId: 'hip',
       policyName: 'free',
     }).then(function() {
-      fix.api.create({
+      self.kansas.create({
         ownerId: 'hip',
         policyName: 'free',
       }).catch(noop);
