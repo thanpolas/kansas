@@ -95,6 +95,7 @@ fixtures.setupCase = function(optCb) {
       self.token = item.token;
     }).then(done, done);
   });
+
   tester.setup(function(done) {
     var self = this;
     this.kansas.create({

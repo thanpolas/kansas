@@ -15,7 +15,7 @@ describe('Accounting', function() {
     fix = res;
   });
 
-  it.only('changePolicy() will alter the records', function(done) {
+  it('changePolicy() will alter the records', function(done) {
     var change = {
       ownerId: fix.tokenItem.ownerId,
       policyName: 'basic',
@@ -25,7 +25,6 @@ describe('Accounting', function() {
         var keys = fix.api.tokenModel.getKeys(fix.tokenItem);
         var keysTwo = fix.api.tokenModel.getKeys(fix.tokenItemTwo);
         var pget = Promise.promisify(fix.client.get, fix.client);
-        console.log('KEYS:', keys, fix.tokenItem);
         return Promise.all([
           fix.api.tokenModel.get(fix.token),
           fix.api.tokenModel.get(fix.tokenItemTwo.token),
