@@ -36,6 +36,7 @@ tokenAssert.types = function(tokenItem) {
 tokenAssert.values = function(tokenItem, optCompare) {
   var assert = chai.assert;
   var compare = optCompare || {};
+  console.log(tokenItem, optCompare);
   assert.lengthOf(tokenItem.token, compare.token || 32);
   assert.equal(tokenItem.policyName, compare.policyName || 'free');
   assert.equal(tokenItem.limit, compare.limit || 10);
