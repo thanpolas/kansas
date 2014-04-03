@@ -26,7 +26,7 @@ var LOG_LEVEL = 0;
  * - A Token of policy "free"
  * - A second Token of policy "free"
  *
- * @param {Function(Object)} cb A callback with an object providing all references:
+ * @param {Function(Object)=} optCb A callback with an object providing all references:
  *   @param {redis.RedisClient} client A redis client.
  *   @param {kansas.model.TokenModel} tokenModel
  *   @param {kansas.model.PolicyModel} policyModel
@@ -34,85 +34,96 @@ var LOG_LEVEL = 0;
  *   @param {string} token
  *   @param {Object} tokenItem
  */
-fixtures.setupCase = function(cb) {
-  var client;
-  var api;
-  var policyItem;
-  var policyItemBasic;
-  var tokenItem;
-  var tokenItemTwo;
+fixtures.setupCase = function(optCb) {
+  var cb = optCb || function() {};
 
   var policyFree = {
     name: 'free',
     maxTokens: 3,
     limit: 10,
-    period: 'month',
   };
 
   var policyBasic = {
     name: 'basic',
     maxTokens: 10,
     limit: 100,
-    period: 'month',
+  };
+
+  var policyCount = {
+    name: 'countPolicy',
+    maxTokens: 20,
+    count: true,
   };
 
   tester.setup(function(done) {
-    if (client) { return done(); }
+    if (this.client) { return done(); }
     var redis = new Redis();
+    var self = this;
     redis.connect().then(function(cl) {
-      client = cl;
+      self.client = cl;
       done();
     }).catch(done);
   });
   beforeEach(function(done) {
-    api = kansas({
+    this.kansas = kansas({
       prefix: 'test',
       logging: LOGGING,
       logLevel: LOG_LEVEL,
     });
-    api.connect().then(done, done);
+    this.kansas.connect().then(done, done);
   });
 
 
   tester.setup(function(done) {
-    api.db.nuke('Yes purge all records irreversably', 'test')
+    this.kansas.db.nuke('Yes purge all records irreversably', 'test')
       .then(done, done);
   });
 
   tester.setup(function() {
-    policyItem = api.policy.create(policyFree);
-  });
-
-  tester.setup(function() {
-    policyItemBasic = api.policy.create(policyBasic);
+    this.policyItem = this.kansas.policy.create(policyFree);
+    this.policyItemBasic = this.kansas.policy.create(policyBasic);
+    this.policyCount = this.kansas.policy.create(policyCount);
   });
 
   tester.setup(function(done) {
-    api.create({
-      policyName: policyItem.name,
+    var self = this;
+    this.kansas.create({
+      policyName: this.policyItem.name,
       ownerId: 'hip',
     }).then(function(item) {
-      tokenItem = item;
+      self.tokenItem = item;
+      self.token = item.token;
     }).then(done, done);
   });
   tester.setup(function(done) {
-    api.create({
-      policyName: policyItem.name,
+    var self = this;
+    this.kansas.create({
+      policyName: this.policyItem.name,
       ownerId: 'hip',
     }).then(function(item) {
-      tokenItemTwo = item;
+      self.tokenItemTwo = item;
+    }).then(done, done);
+  });
+
+  tester.setup(function(done) {
+    var self = this;
+    this.kansas.create({
+      policyName: this.policyCount.name,
+      ownerId: 'hip',
+    }).then(function(item) {
+      self.tokenItemCount = item;
     }).then(done, done);
   });
 
   tester.setup(function() {
     cb({
-      client: client,
-      api: api,
-      policyItem: policyItem,
-      policyItemBasic: policyItemBasic,
-      token: tokenItem.token,
-      tokenItem: tokenItem,
-      tokenItemTwo: tokenItemTwo,
+      client: this.client,
+      api: this.kansas,
+      policyItem: this.policyItem,
+      policyItemBasic: this.policyItemBasic,
+      token: this.token,
+      tokenItem: this.tokenItem,
+      tokenItemTwo: this.tokenItemTwo,
     });
   });
 };
