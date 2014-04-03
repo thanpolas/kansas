@@ -6,7 +6,7 @@ var expect = chai.expect;
 
 var kansas = require('../..');
 
-describe.skip('Policy tests', function () {
+describe('Policy tests', function () {
   var api;
   beforeEach(function(done) {
     api = kansas({logging: true});
@@ -61,7 +61,7 @@ describe.skip('Policy tests', function () {
 
       expect(policy.name).to.equal('aha');
       expect(policy.maxTokens).to.equal(5);
-      expect(policy.limit).to.equal(NaN);
+      expect(policy.limit).to.be.nan;
       expect(policy.period).to.equal('month');
       expect(policy.count).to.be.true;
     });
