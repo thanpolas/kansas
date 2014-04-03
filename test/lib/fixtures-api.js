@@ -82,7 +82,7 @@ fixtures.setupCase = function(optCb) {
   tester.setup(function() {
     this.policyItem = this.kansas.policy.create(policyFree);
     this.policyItemBasic = this.kansas.policy.create(policyBasic);
-    // this.policyCount = this.kansas.policy.create(policyCount);
+    this.policyCount = this.kansas.policy.create(policyCount);
   });
 
   tester.setup(function(done) {
