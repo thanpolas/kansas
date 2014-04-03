@@ -10,9 +10,10 @@ module.exports = function (grunt) {
     mochaTest: {
       options: {
         ui: 'bdd',
+        clearRequireCache: true,
       },
-      manage: {
-        src: ['test/manage/*.js']
+      api: {
+        src: ['test/api/*.js']
       },
       unit: {
         options: {
@@ -66,6 +67,8 @@ module.exports = function (grunt) {
   grunt.registerTask('start', 'Start all required services', ['startRedis']);
   grunt.registerTask('stop', 'Stop all services', ['stopRedis']);
 
+  grunt.registerTask('test', ['jshint', 'mochaTest']);
+
   // Default task.
-  grunt.registerTask('default', ['jshint', 'mochaTest']);
+  grunt.registerTask('default', ['test']);
 };
