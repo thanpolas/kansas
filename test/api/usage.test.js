@@ -63,9 +63,10 @@ describe.only('Usage Model', function() {
       }).then(done, done);
     });
     it('counts three times', function(done) {
+      var self = this;
       this.kansas.count(this.tokenItemCount.token).then(function() {
-        return this.kansas.count(this.tokenItemCount.token).then(function() {
-          return this.kansas.count(this.tokenItemCount.token).then(function(consumed) {
+        return self.kansas.count(self.tokenItemCount.token).then(function() {
+          return self.kansas.count(self.tokenItemCount.token).then(function(consumed) {
             expect(consumed).to.equal(3);
           });
         });
