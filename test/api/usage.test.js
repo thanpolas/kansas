@@ -51,6 +51,28 @@ describe.skip('Usage Model', function() {
     });
   });
 
+  describe('Count Policies', function () {
+    it('Counts a unit', function(done) {
+      this.kansas.count(this.tokenItemCount.token).then(function(consumed) {
+        expect(consumed).to.equal(1);
+      }).then(done, done);
+    });
+    it('accepts units to count', function(done) {
+      this.kansas.count(this.tokenItemCount.token, 10).then(function(consumed) {
+        expect(consumed).to.equal(10);
+      }).then(done, done);
+    });
+    it('counts three times', function(done) {
+      this.kansas.count(this.tokenItemCount.token).then(function() {
+        return this.kansas.count(this.tokenItemCount.token).then(function() {
+          return this.kansas.count(this.tokenItemCount.token).then(function(consumed) {
+            expect(consumed).to.equal(3);
+          });
+        });
+      }).then(done, done);
+    });
+  });
+
   describe('Check month period', function() {
     var clock;
     beforeEach(function() {
