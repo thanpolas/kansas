@@ -1,4 +1,5 @@
 /*jshint camelcase:false */
+var jshintStylish = require('jshint-stylish');
 
 module.exports = function (grunt) {
   // Load all grunt tasks
@@ -23,7 +24,7 @@ module.exports = function (grunt) {
     jshint: {
       options: {
         jshintrc: '.jshintrc',
-        reporter: require('jshint-stylish')
+        reporter: jshintStylish,
       },
       gruntfile: {
         src: 'Gruntfile.js'
@@ -31,9 +32,6 @@ module.exports = function (grunt) {
       lib: {
         src: ['lib/**/*.js']
       },
-      test: {
-        src: ['test/**/*.js']
-      }
     },
     watch: {
       gruntfile: {

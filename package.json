@@ -32,7 +32,8 @@
     "redis": "~0.10.1",
     "redis-scanstreams": "~1.0.1",
     "terminus": "~1.0.9",
-    "collections": "~1.0.2"
+    "collections": "~1.0.2",
+    "grunt-contrib-jshint": "^0.10.0"
   },
   "devDependencies": {
     "grunt-contrib-watch": "~0.6.1",
@@ -47,6 +48,7 @@
     "chai": "~1.9.1",
     "sinon": "~1.9.0",
     "grunt-services": "0.0.1",
-    "grunt-release": "~0.7.0"
+    "grunt-release": "~0.7.0",
+    "jshint-stylish": "^0.1.5"
   }
 }
