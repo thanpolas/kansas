@@ -38,6 +38,7 @@ describe('Prepopulation of usage keys', function() {
         var keys = fix.api.tokenModel.getKeys(fix.tokenItem);
         var keysTwo = fix.api.tokenModel.getKeys(fix.tokenItemTwo);
         var pget = Promise.promisify(fix.client.get, fix.client);
+
         return Promise.all([
           pget(keys.usage),
           pget(keys.usageFuture),
