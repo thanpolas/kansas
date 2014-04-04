@@ -26,7 +26,7 @@
     "logg": "~0.3.0",
     "cip": "~0.2.4",
     "middlewarify": "~0.3.7",
-    "bluebird": "~1.1.1",
+    "bluebird": "~1.2.1",
     "lodash": "~2.4.1",
     "floordate": "~1.0.2",
     "redis": "~0.10.1",
@@ -46,7 +46,7 @@
     "grunt-open": "~0.2.3",
     "grunt": "~0.4.4",
     "chai": "~1.9.1",
-    "sinon": "~1.9.0",
+    "sinon": "~1.9.1",
     "grunt-services": "0.0.1",
     "grunt-release": "~0.7.0",
     "jshint-stylish": "^0.1.5"
