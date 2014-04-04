@@ -108,5 +108,12 @@ describe('Errors', function() {
         })
         .then(done, done);
     });
+    it('will produce a TokenNotExists error even when consuming multiple units', function (done) {
+      fix.api.count('troll', 5)
+        .catch(function(err) {
+          expect(err).to.be.instanceOf(error.TokenNotExists);
+        })
+        .then(done, done);
+    });
   });
 });
