@@ -63,6 +63,9 @@ These are the main concepts you need to understand, now you are ready to dive in
 
 ## Release History
 
+- **v0.2.0**, *04 Apr 2014*
+    - Created the [Count Policy Type](https://github.com/thanpolas/kansas-docs#the-count-policy-type).
+    - Optimizations in consume methods.
 - **v0.1.16**, *29 Feb 2014*
     - Update all dependencies to latest.
     - More defense on db prepopulation for corrupt records.
