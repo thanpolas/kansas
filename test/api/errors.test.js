@@ -86,4 +86,27 @@ describe('Errors', function() {
         });
     });
   });
+
+  describe('Count Errors', function () {
+    it('will produce a TokenNotExists error when token does not exist', function (done) {
+      fix.api.count('troll')
+        .catch(function(err) {
+          expect(err).to.be.instanceOf(error.TokenNotExists);
+        })
+        .then(done, done);
+    });
+    it('will produce a TokenNotExists error even if token is used multiple times', function (done) {
+      fix.api.count('troll')
+        .catch(function() {
+          return fix.api.count('troll')
+            .then(function() {
+              throw new Error('Should not allow API access');
+            })
+            .catch(function(err) {
+              expect(err).to.be.instanceOf(error.TokenNotExists);
+            });
+        })
+        .then(done, done);
+    });
+  });
 });
