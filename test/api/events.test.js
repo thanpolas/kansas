@@ -30,7 +30,6 @@ describe('Events', function() {
   });
   it('Emits a token delete event', function(done) {
     this.kansas.on('delete', function(tokenItem) {
-      console.log('tokenItem:', tokenItem);
       tokenAssert.properties(tokenItem);
       tokenAssert.types(tokenItem);
       tokenAssert.values(tokenItem);
