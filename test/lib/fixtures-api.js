@@ -64,7 +64,8 @@ fixtures.setupCase = function(optCb) {
       done();
     }).catch(done);
   });
-  beforeEach(function(done) {
+
+  tester.setup(function(done) {
     this.kansas = kansas({
       prefix: 'test',
       logging: LOGGING,
@@ -72,7 +73,6 @@ fixtures.setupCase = function(optCb) {
     });
     this.kansas.connect().then(done, done);
   });
-
 
   tester.setup(function(done) {
     this.kansas.db.nuke('Yes purge all records irreversably', 'test')
