@@ -63,6 +63,8 @@ These are the main concepts you need to understand, now you are ready to dive in
 
 ## Release History
 
+- **v0.2.3**, *15 Jun 2014*
+    - Fix deleting non existing key bug.
 - **v0.2.2**, *04 Apr 2014*
     - Created the [Count Policy Type](https://github.com/thanpolas/kansas-docs#the-count-policy-type).
     - Optimizations in consume methods.
