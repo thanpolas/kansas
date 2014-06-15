@@ -152,7 +152,7 @@ suite('Token Model', function() {
       }).then(done, done);
     });
 
-    test.only('remove a non existing key', function(done) {
+    test('remove a non existing key', function(done) {
       tokenModel.del('zit').then(done, done);
     });
   });
