@@ -1,6 +1,6 @@
 {
   "name": "kansas",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "main": "./",
   "description": "Usage limited API to go",
   "homepage": "https://github.com/thanpolas/kansas",
