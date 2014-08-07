@@ -28,7 +28,7 @@ describe('Get Usage Model', function() {
 
     it('Gets usage for a [limit] token', function(done) {
       this.kansas.getUsage(this.token).then(function(remaining) {
-        expect(remaining).to.equal('7');
+        expect(remaining).to.equal(7);
       }).then(done, done);
     });
     it('Gets usage for a [limit] user id', function(done) {
@@ -37,16 +37,16 @@ describe('Get Usage Model', function() {
         .then(function(remaining) {
           expect(remaining).to.have.length(2);
           remaining.forEach(function(tokenItem) {
-            expect(tokenItem.usage).to.be.a('string');
+            expect(tokenItem.usage).to.be.a('number');
             if (tokenItem.token === this.token) {
-              expect(tokenItem.usage).to.equal('7');
+              expect(tokenItem.usage).to.equal(7);
             }
           }, this);
         }).then(done, done);
     });
     it('Gets usage for a [count] token', function(done) {
       this.kansas.getUsage(this.tokenItemCount.token).then(function(used) {
-        expect(used).to.equal('5');
+        expect(used).to.equal(5);
       }).then(done, done);
     });
     it('Gets usage for a [count] user id', function(done) {
@@ -55,9 +55,9 @@ describe('Get Usage Model', function() {
         .then(function(results) {
           expect(results).to.have.length(1);
           results.forEach(function(tokenItem) {
-            expect(tokenItem.usage).to.be.a('string');
+            expect(tokenItem.usage).to.be.a('number');
             if (tokenItem.token === this.tokenItemCount.token) {
-              expect(tokenItem.usage).to.equal('5');
+              expect(tokenItem.usage).to.equal(5);
             }
           }, this);
         }).then(done, done);
