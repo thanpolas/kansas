@@ -16,7 +16,7 @@ describe('Get Usage Model', function() {
 
   fixtures.setupCase();
 
-  describe.only('Getting Usage', function () {
+  describe('Getting Usage', function () {
     beforeEach(function (done) {
       this.kansas.consume(this.token, 3)
         .then(done.bind(null, null), done);
