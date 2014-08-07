@@ -63,6 +63,8 @@ These are the main concepts you need to understand, now you are ready to dive in
 
 ## Release History
 
+- **v0.2.4**, *07 Aug 2014*
+    - Added the [`kansas.getUsage()`](https://github.com/thanpolas/kansas-docs/blob/master/README.md#getUsage) and [`kansas.getUsageByOwnerId()`](https://github.com/thanpolas/kansas-docs/blob/master/README.md#get-usage-by-owner) methods.
 - **v0.2.3**, *15 Jun 2014*
     - Fix deleting non existing key bug.
 - **v0.2.2**, *04 Apr 2014*
