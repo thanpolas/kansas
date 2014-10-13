@@ -15,7 +15,7 @@ describe('Prepopulation of usage keys', function() {
   var log;
   fixtures.setupCase(function(res) {
     fix = res;
-    log = fix.api.logger.getLogger('kansas.test.api.prepopulate');
+    log = fix.kansas.logger.getLogger('kansas.test.kansas.prepopulate');
   });
 
   describe('Skip one month ahead', function() {
@@ -34,10 +34,10 @@ describe('Prepopulation of usage keys', function() {
       log.fine('test() :: starting prepopulate test...');
 
       var self = this;
-      fix.api.db.prepopulate().then(function() {
+      fix.kansas.db.prepopulate().then(function() {
         log.fine('test() :: prepopulate() done!');
-        var keys = fix.api.tokenModel.getKeys(fix.tokenItem);
-        var keysTwo = fix.api.tokenModel.getKeys(fix.tokenItemTwo);
+        var keys = fix.kansas.tokenModel.getKeys(fix.tokenItem);
+        var keysTwo = fix.kansas.tokenModel.getKeys(fix.tokenItemTwo);
         var pget = Promise.promisify(fix.client.get, fix.client);
 
         var keysCount = self.kansas.tokenModel.getKeys(self.tokenItemCount);
