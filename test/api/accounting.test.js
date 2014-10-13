@@ -20,14 +20,14 @@ describe('Accounting', function() {
       ownerId: fix.tokenItem.ownerId,
       policyName: 'basic',
     };
-    fix.api.policy.change(change)
+    fix.kansas.policy.change(change)
       .then(function() {
-        var keys = fix.api.tokenModel.getKeys(fix.tokenItem);
-        var keysTwo = fix.api.tokenModel.getKeys(fix.tokenItemTwo);
+        var keys = fix.kansas.tokenModel.getKeys(fix.tokenItem);
+        var keysTwo = fix.kansas.tokenModel.getKeys(fix.tokenItemTwo);
         var pget = Promise.promisify(fix.client.get, fix.client);
         return Promise.all([
-          fix.api.tokenModel.get(fix.token),
-          fix.api.tokenModel.get(fix.tokenItemTwo.token),
+          fix.kansas.tokenModel.get(fix.token),
+          fix.kansas.tokenModel.get(fix.tokenItemTwo.token),
           pget(keys.usage),
           pget(keys.usageFuture),
           pget(keysTwo.usage),

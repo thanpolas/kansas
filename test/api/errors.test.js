@@ -15,7 +15,7 @@ describe('Errors', function() {
 
   fixtures.setupCase(function(res) {
     fix = res;
-    error = fix.api.error;
+    error = fix.kansas.error;
   });
 
   it('Will produce a database error if redis credentials are wrong', function(done) {
@@ -36,14 +36,14 @@ describe('Errors', function() {
 
   describe('Token Create Errors', function () {
     it('will produce a Validation error if ownerId is not provided', function (done) {
-      fix.api.create({
+      fix.kansas.create({
         policyName: 'free',
       }).catch(function(err) {
         expect(err).to.be.instanceOf(error.Validation);
       }).then(done, done);
     });
     it('will produce a Validation error if ownerId is empty string', function (done) {
-      fix.api.create({
+      fix.kansas.create({
         ownerId: '',
         policyName: 'free',
       }).catch(function(err) {
@@ -51,14 +51,14 @@ describe('Errors', function() {
       }).then(done, done);
     });
     it('will produce a Policy error if policyName is not provided', function (done) {
-      fix.api.create({
+      fix.kansas.create({
         ownerId: 'hip',
       }).catch(function(err) {
         expect(err).to.be.instanceOf(error.Policy);
       }).then(done, done);
     });
     it('will produce a Policy error if policyName does not exist', function (done) {
-      fix.api.create({
+      fix.kansas.create({
         ownerId: 'hip',
         policyName: 'troll',
       }).catch(function(err) {
@@ -69,16 +69,16 @@ describe('Errors', function() {
 
   describe('Consume Errors', function () {
     it('will produce a TokenNotExists error when token does not exist', function (done) {
-      fix.api.consume('troll')
+      fix.kansas.consume('troll')
         .catch(function(err) {
           expect(err).to.be.instanceOf(error.TokenNotExists);
         })
         .then(done, done);
     });
     it('will produce a UsageLimit error when limit is exceeded', function (done) {
-      fix.api.consume(fix.token, 10)
+      fix.kansas.consume(fix.token, 10)
         .then(function() {
-          fix.api.consume(fix.token)
+          fix.kansas.consume(fix.token)
           .catch(function(err) {
             expect(err).to.be.instanceOf(error.UsageLimit);
           })
@@ -89,16 +89,16 @@ describe('Errors', function() {
 
   describe('Count Errors', function () {
     it('will produce a TokenNotExists error when token does not exist', function (done) {
-      fix.api.count('troll')
+      fix.kansas.count('troll')
         .catch(function(err) {
           expect(err).to.be.instanceOf(error.TokenNotExists);
         })
         .then(done, done);
     });
     it('will produce a TokenNotExists error even if token is used multiple times', function (done) {
-      fix.api.count('troll')
+      fix.kansas.count('troll')
         .catch(function() {
-          return fix.api.count('troll')
+          return fix.kansas.count('troll')
             .then(function() {
               throw new Error('Should not allow API access');
             })
@@ -109,7 +109,7 @@ describe('Errors', function() {
         .then(done, done);
     });
     it('will produce a TokenNotExists error even when consuming multiple units', function (done) {
-      fix.api.count('troll', 5)
+      fix.kansas.count('troll', 5)
         .catch(function(err) {
           expect(err).to.be.instanceOf(error.TokenNotExists);
         })
