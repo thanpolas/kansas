@@ -63,6 +63,8 @@ These are the main concepts you need to understand, now you are ready to dive in
 
 ## Release History
 
+- **v0.3.0**, *18 Oct 2014*
+    - Fixed spelling mistake in db nuking confirmation string.
 - **v0.2.5**, *13 Oct 2014*
     - Refactored and exposed the internal `Initdb` Constructor for nuking and populating a test database.
     - Upgraded all dependent packages to latest.
