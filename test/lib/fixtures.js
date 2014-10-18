@@ -61,7 +61,7 @@ fixtures.setupCase = function(cb) {
   });
   tester.setup(function(done) {
     var clean = new Clean(client, {prefix: 'test'});
-    clean.nuke('Yes purge all records irreversably', 'test')
+    clean.nuke('Yes purge all records irreversibly', 'test')
       .then(done, done);
   });
   tester.setup(function() {

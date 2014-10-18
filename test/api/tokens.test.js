@@ -34,7 +34,7 @@ describe('Tokens tests', function () {
     }).catch(done);
   });
   beforeEach(function(done) {
-    api.db.nuke('Yes purge all records irreversably', 'test')
+    api.db.nuke('Yes purge all records irreversibly', 'test')
       .then(done, done);
   });
   beforeEach(function() {

@@ -106,7 +106,7 @@ Fixtures.prototype.connectKansas = Promise.method(function() {
 });
 
 Fixtures.prototype.nukedb = Promise.method(function() {
-  return this.kansas.db.nuke('Yes purge all records irreversably', this.dbName);
+  return this.kansas.db.nuke('Yes purge all records irreversibly', this.dbName);
 });
 
 Fixtures.prototype.createPolicies = Promise.method(function() {
