@@ -63,6 +63,8 @@ These are the main concepts you need to understand, now you are ready to dive in
 
 ## Release History
 
+- **v0.3.1**, *19 Oct 2014*
+    - Properly exposed testing initdb, moved out of npm-ignored `test/` folder.
 - **v0.3.0**, *18 Oct 2014*
     - Fixed spelling mistake in db nuking confirmation string.
 - **v0.2.5**, *13 Oct 2014*
