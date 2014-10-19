@@ -9,12 +9,12 @@ var chai = require('chai');
 var expect = chai.expect;
 
 // var kansasError = require('../../lib/util/error');
-var fixtures = require('../lib/fixtures-api');
+var tester = require('../lib/tester');
 
 describe('Get Usage Model', function() {
   this.timeout(4000);
 
-  fixtures.setupCase();
+  tester.initdb();
 
   describe('Getting Usage', function () {
     beforeEach(function (done) {

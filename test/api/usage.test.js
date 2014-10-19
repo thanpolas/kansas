@@ -8,12 +8,12 @@ var floordate = require('floordate');
 var expect = chai.expect;
 
 var kansasError = require('../../lib/util/error');
-var fixtures = require('../lib/fixtures-api');
+var tester = require('../lib/tester');
 
 describe('Usage Model', function() {
   this.timeout(4000);
 
-  fixtures.setupCase();
+  tester.initdb();
 
   describe('Limit Policies', function () {
     it('consumes a unit', function(done) {

@@ -7,13 +7,13 @@ var sinon = require('sinon');
 var floordate = require('floordate');
 var expect = chai.expect;
 
-var fixtures = require('../lib/fixtures-api');
+var tester = require('../lib/tester');
 
 describe('Prepopulation of usage keys', function() {
   this.timeout(4000);
   var fix;
   var log;
-  fixtures.setupCase(function(res) {
+  tester.initdb(function(res) {
     fix = res;
     log = fix.kansas.logger.getLogger('kansas.test.kansas.prepopulate');
   });

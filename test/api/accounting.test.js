@@ -5,13 +5,13 @@ var Promise = require('bluebird');
 var chai = require('chai');
 var expect = chai.expect;
 
-var fixtures = require('../lib/fixtures-api');
+var tester = require('../lib/tester');
 
 describe('Accounting', function() {
   this.timeout(4000);
   var fix;
 
-  fixtures.setupCase(function(res) {
+  tester.initdb(function(res) {
     fix = res;
   });
 

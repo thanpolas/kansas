@@ -4,7 +4,7 @@
 var chai = require('chai');
 var expect = chai.expect;
 
-var fixtures = require('../lib/fixtures-api');
+var tester = require('../lib/tester');
 var tokenAssert = require('../lib/token-assertions.js');
 var policyAssert = require('../lib/policy-assertions.js');
 
@@ -13,7 +13,7 @@ function noop() {}
 describe('Events', function() {
   this.timeout(4000);
 
-  fixtures.setupCase();
+  tester.initdb();
 
   it('Emits a token create event', function(done) {
     this.kansas.on('create', function(tokenItem) {
