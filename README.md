@@ -63,6 +63,8 @@ These are the main concepts you need to understand, now you are ready to dive in
 
 ## Release History
 
+- **v0.3.3**, *03 Mar 2015*
+    - Added more debug logging on get usage.
 - **v0.3.2**, *19 Oct 2014*
     - Fixed a bug in Initdb, not properly initializing the database name.
 - **v0.3.1**, *19 Oct 2014*
