@@ -11,7 +11,7 @@ var Prepopulate = require('../../lib/db/populate.db');
 var fixtures = require('../lib/fixtures');
 
 suite('Prepopulation of usage keys', function() {
-  this.timeout(4000);
+  this.timeout(10000);
   var fix;
 
   fixtures.setupCase(function(res) {

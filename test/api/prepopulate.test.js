@@ -10,7 +10,7 @@ var expect = chai.expect;
 var tester = require('../lib/tester');
 
 describe('Prepopulation of usage keys', function() {
-  this.timeout(4000);
+  this.timeout(10000);
   var fix;
   var log;
   tester.initdb(function(res) {
