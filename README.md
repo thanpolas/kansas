@@ -63,6 +63,8 @@ These are the main concepts you need to understand, now you are ready to dive in
 
 ## Release History
 
+- **v0.3.6**, *03 Apr 2015*
+    - Fixed Redis version check issue, thanks [@sirodoht](https://github.com/sirodoht).
 - **v0.3.5**, *03 Mar 2015*
     - Added more debug logging on get usage.
 - **v0.3.2**, *19 Oct 2014*
