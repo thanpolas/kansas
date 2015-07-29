@@ -14,7 +14,6 @@ var tokenAssert = require('../lib/token-assertions');
 describe('Tokens tests', function () {
   this.timeout(4000);
   var client;
-  var policyItem;
   var api;
 
   beforeEach(function(done) {
@@ -38,39 +37,44 @@ describe('Tokens tests', function () {
       .then(done, done);
   });
   beforeEach(function() {
-    policyItem = api.policy.create({
+    this.freePlan = api.policy.create({
       name: 'free',
       maxTokens: 3,
       limit: 10,
       period: 'month',
+    });
+    this.startPlan = api.policy.create({
+      name: 'start',
+      maxTokens: 3,
+      count: true,
     });
   });
 
   describe('SET', function() {
     it('returned properties', function(done) {
       api.set({
-        policyName: policyItem.name,
+        policyName: this.freePlan.name,
         ownerId: 'hip',
       }).then(tokenAssert.properties)
         .then(done, done);
     });
     it('returned types', function(done) {
       api.set({
-        policyName: policyItem.name,
+        policyName: this.freePlan.name,
         ownerId: 'hip',
       }).then(tokenAssert.types)
         .then(done, done);
     });
     it('returned values', function(done) {
       api.set({
-        policyName: policyItem.name,
+        policyName: this.freePlan.name,
         ownerId: 'hip',
       }).then(tokenAssert.values)
         .then(done, done);
     });
     it('Check index and bucket keys created', function(done) {
       api.set({
-        policyName: policyItem.name,
+        policyName: this.freePlan.name,
         ownerId: 'hip',
       }).then(function(item) {
 
@@ -104,7 +108,7 @@ describe('Tokens tests', function () {
 
     beforeEach(function(done) {
       api.set({
-        policyName: policyItem.name,
+        policyName: this.freePlan.name,
         ownerId: 'hip',
       }).then(function(item) {
         tokenItem = item;
@@ -139,11 +143,11 @@ describe('Tokens tests', function () {
   describe('MaxTokens Policy', function() {
     it('will trigger MaxTokens error when reaching token limit', function(done) {
       Promise.all([
-        api.set({policyName: policyItem.name, ownerId: 'hip'}),
-        api.set({policyName: policyItem.name, ownerId: 'hip'}),
-        api.set({policyName: policyItem.name, ownerId: 'hip'}),
+        api.set({policyName: this.freePlan.name, ownerId: 'hip'}),
+        api.set({policyName: this.freePlan.name, ownerId: 'hip'}),
+        api.set({policyName: this.freePlan.name, ownerId: 'hip'}),
       ]).then(function() {
-        api.set({policyName: policyItem.name, ownerId: 'hip'})
+        api.set({policyName: this.freePlan.name, ownerId: 'hip'})
           .then(function() {
             throw new Error('token.set() Should not resolve');
           }, function(err) {
@@ -161,7 +165,7 @@ describe('Tokens tests', function () {
 
     beforeEach(function(done) {
       api.set({
-        policyName: policyItem.name,
+        policyName: this.freePlan.name,
         ownerId: 'hip',
       }).then(function(item) {
         tokenItemOne = item;
@@ -169,7 +173,7 @@ describe('Tokens tests', function () {
     });
     beforeEach(function(done) {
       api.set({
-        policyName: policyItem.name,
+        policyName: this.freePlan.name,
         ownerId: 'hip',
       }).then(function(item) {
         tokenItemTwo = item;
@@ -195,5 +199,58 @@ describe('Tokens tests', function () {
         expect(items).to.have.length(2);
       }).then(done, done);
     });
+  });
+
+  describe('Initial Usage Values', function () {
+    it('Should have zero usage on free plan', function (done) {
+      api.set({
+        policyName: this.freePlan.name,
+        ownerId: 'zip',
+      })
+        .bind(this)
+        .then(function(item) {
+          var keys = api.tokenModel.getKeys(item);
+          return api.consume(item.token, 3)
+            .return(keys);
+        })
+        .then(function(keys) {
+          return new Promise(function(resolve, reject) {
+            client.get(keys.usage, function(err, res) {
+              if (err) {
+                reject(err);
+                return;
+              }
+              // initial value was 10, minus 3 consumed 7
+              expect(res).to.equal('7');
+              resolve();
+            });
+          });
+        })
+        .then(done)
+        .catch(done);
+    });
+    it('Should have zero usage on limit plan', function (done) {
+      api.set({
+        policyName: this.startPlan.name,
+        ownerId: 'zit',
+      })
+        .bind(this)
+        .then(function(item) {
+          var keys = api.tokenModel.getKeys(item);
+          return new Promise(function(resolve, reject) {
+            client.get(keys.usage, function(err, res) {
+              if (err) {
+                reject(err);
+                return;
+              }
+              expect(res).to.equal('1');
+              resolve();
+            });
+          });
+        })
+        .then(done)
+        .catch(done);
+    });
+
   });
 });
