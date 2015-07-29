@@ -146,7 +146,9 @@ describe('Tokens tests', function () {
         api.set({policyName: this.freePlan.name, ownerId: 'hip'}),
         api.set({policyName: this.freePlan.name, ownerId: 'hip'}),
         api.set({policyName: this.freePlan.name, ownerId: 'hip'}),
-      ]).then(function() {
+      ])
+      .bind(this)
+      .then(function() {
         api.set({policyName: this.freePlan.name, ownerId: 'hip'})
           .then(function() {
             throw new Error('token.set() Should not resolve');
