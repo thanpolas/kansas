@@ -63,6 +63,8 @@ These are the main concepts you need to understand, now you are ready to dive in
 
 ## Release History
 
+- **v0.3.7**, *03 Aug 2015*
+    - Prepopulation will now check current period's usage keys if exist and if not create them, it will also not overwrite future keys if they are found.
 - **v0.3.6**, *03 Apr 2015*
     - Fixed Redis version check issue, thanks [@sirodoht](https://github.com/sirodoht).
 - **v0.3.5**, *03 Mar 2015*
