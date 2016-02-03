@@ -8,26 +8,46 @@ var expect = chai.expect;
 var tester = require('../lib/tester');
 
 describe('Accounting', function() {
-  this.timeout(4000);
-  var fix;
 
-  tester.initdb(function(res) {
-    fix = res;
+  tester.initdb();
+
+  beforeEach(function () {
+    return this.kansas.create({
+      policyName: 'countPolicy',
+      ownerId: 'countPolicy1',
+    })
+      .bind(this)
+      .then(function(item) {
+        this.tokenItemAccounting = item;
+      });
   });
+
+  beforeEach(function () {
+    return this.kansas.create({
+      policyName: 'basic',
+      ownerId: 'basicPolicy1',
+    })
+      .bind(this)
+      .then(function(item) {
+        this.tokenItemBasic = item;
+      });
+  });
+
 
   it('changePolicy() will alter the records', function(done) {
     var change = {
-      ownerId: fix.tokenItem.ownerId,
+      ownerId: this.tokenItem.ownerId,
       policyName: 'basic',
     };
-    fix.kansas.policy.change(change)
+    this.kansas.policy.change(change)
+      .bind(this)
       .then(function() {
-        var keys = fix.kansas.tokenModel.getKeys(fix.tokenItem);
-        var keysTwo = fix.kansas.tokenModel.getKeys(fix.tokenItemTwo);
-        var pget = Promise.promisify(fix.client.get, fix.client);
+        var keys = this.kansas.tokenModel.getKeys(this.tokenItem);
+        var keysTwo = this.kansas.tokenModel.getKeys(this.tokenItemTwo);
+        var pget = Promise.promisify(this.client.get, {context: this.client});
         return Promise.all([
-          fix.kansas.tokenModel.get(fix.token),
-          fix.kansas.tokenModel.get(fix.tokenItemTwo.token),
+          this.kansas.tokenModel.get(this.token),
+          this.kansas.tokenModel.get(this.tokenItemTwo.token),
           pget(keys.usage),
           pget(keys.usageFuture),
           pget(keysTwo.usage),
@@ -45,5 +65,20 @@ describe('Accounting', function() {
           expect(result[5]).to.equal('100', 'usage two future');
         });
       }).then(done, done);
+  });
+
+  it('should count after change plan', function() {
+    var change = {
+      ownerId: 'basicPolicy1',
+      policyName: 'countPolicy',
+    };
+    return this.kansas.policy.change(change)
+      .bind(this)
+      .then(function() {
+        return this.kansas.tokenModel.get(this.tokenItemBasic.token);
+      })
+      .then(function(tokenItem) {
+        return this.kansas.count(tokenItem.token);
+      });
   });
 });

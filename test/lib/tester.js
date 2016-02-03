@@ -7,6 +7,8 @@ var tester = module.exports = {};
 
 tester.kansas = kansas;
 
+tester.dbinited = false;
+
 tester.setup = null;
 tester.teardown = null;
 
@@ -37,17 +39,15 @@ tester.cooldown = function(seconds) {
  * - A Token of policy "free"
  * - A second Token of policy "free"
  *
- * @param {Function(Fixtures)=} optCb A callback with the Fixtures instance.
  */
-tester.initdb = function(optCb) {
-  var cb = optCb || function() {};
-
-  tester.setup(function(done) {
+tester.initdb = function() {
+  beforeEach(function() {
     var initdb = new kansas.Initdb();
-    initdb.start()
+    console.log('initdb...');
+    return initdb.start()
       .bind(this)
       .then(function(fixtureInstance) {
-        cb(fixtureInstance);
+
         this.client = fixtureInstance.client;
         this.policyItem = fixtureInstance.policyItem;
         this.policyItemBasic = fixtureInstance.policyItemBasic;
@@ -57,7 +57,6 @@ tester.initdb = function(optCb) {
         this.tokenItem = fixtureInstance.tokenItem;
         this.tokenItemTwo = fixtureInstance.tokenItemTwo;
         this.tokenItemCount = fixtureInstance.tokenItemCount;
-      })
-      .then(done, done);
+      });
   });
 };

@@ -12,7 +12,6 @@ var expect = chai.expect;
 var tester = require('../lib/tester');
 
 describe('Get Usage Model', function() {
-  this.timeout(4000);
 
   tester.initdb();
 
