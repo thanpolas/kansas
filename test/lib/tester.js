@@ -43,7 +43,6 @@ tester.cooldown = function(seconds) {
 tester.initdb = function() {
   beforeEach(function() {
     var initdb = new kansas.Initdb();
-    console.log('initdb...');
     return initdb.start()
       .bind(this)
       .then(function(fixtureInstance) {
