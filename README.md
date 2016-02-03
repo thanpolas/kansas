@@ -63,6 +63,9 @@ These are the main concepts you need to understand, now you are ready to dive in
 
 ## Release History
 
+- **v0.3.8**, *03 Feb 2016*
+    - Fixed an issue with changing policy.
+    - Updated all packages to latest.
 - **v0.3.7**, *03 Aug 2015*
     - Prepopulation will now check current period's usage keys if exist and if not create them, it will also not overwrite future keys if they are found.
 - **v0.3.6**, *03 Apr 2015*
