@@ -11,7 +11,6 @@ var kansasError = require('../../lib/util/error');
 var tester = require('../lib/tester');
 
 describe('Usage Model', function() {
-  this.timeout(4000);
 
   tester.initdb();
 

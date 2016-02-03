@@ -11,14 +11,12 @@ module.exports = function (grunt) {
       options: {
         ui: 'bdd',
         clearRequireCache: true,
+        timeout: 10000,
       },
       api: {
         src: ['test/api/*.js']
       },
       unit: {
-        options: {
-          ui: 'tdd',
-        },
         src: ['test/unit/*.js']
       },
     },

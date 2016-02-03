@@ -2,20 +2,17 @@
  * @fileOverview Accounting model unit tests.
  */
 var Promise = require('bluebird');
-var chai = require('chai');
-var assert = chai.assert;
-
+var assert = require('chai').assert;
 var fixtures = require('../lib/fixtures');
 
-suite('Accounting Model', function() {
-  this.timeout(4000);
+describe('Accounting Model', function() {
   var fix;
 
   fixtures.setupCase(function(res) {
     fix = res;
   });
 
-  test('changePolicy() will alter the records', function(done) {
+  it('changePolicy() will alter the records', function(done) {
     var change = {
       ownerId: fix.tokenItem.ownerId,
       policyName: 'basic',
@@ -24,7 +21,7 @@ suite('Accounting Model', function() {
       .then(function() {
         var keys = fix.tokenModel.getKeys(fix.tokenItem);
         var keysTwo = fix.tokenModel.getKeys(fix.tokenItemTwo);
-        var pget = Promise.promisify(fix.client.get, fix.client);
+        var pget = Promise.promisify(fix.client.get, {context: fix.client});
         return Promise.all([
           fix.tokenModel.get(fix.token),
           fix.tokenModel.get(fix.tokenItemTwo.token),

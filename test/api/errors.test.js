@@ -8,14 +8,8 @@ var tester = require('../lib/tester');
 var kansas = require('../..');
 
 describe('Errors', function() {
-  this.timeout(4000);
-  var fix;
-  var error;
 
-  tester.initdb(function(res) {
-    fix = res;
-    error = fix.kansas.error;
-  });
+  tester.initdb();
 
   it('Will produce a database error if redis credentials are wrong', function(done) {
     var api = kansas({
@@ -26,91 +20,116 @@ describe('Errors', function() {
       logging: true,
     });
 
-    api.connect().catch(function(err) {
-      expect(err).to.be.instanceOf(error.Database);
-      expect(err.type).to.equal(error.Database.Type.REDIS_CONNECTION);
-    }).then(done, done);
+    api.connect()
+      .bind(this)
+      .catch(function(err) {
+        expect(err).to.be.instanceOf(this.kansas.error.Database);
+        expect(err.type).to.equal(this.kansas.error.Database.Type.REDIS_CONNECTION);
+      })
+        .then(done, done);
 
   });
 
   describe('Token Create Errors', function () {
     it('will produce a Validation error if ownerId is not provided', function (done) {
-      fix.kansas.create({
+      this.kansas.create({
         policyName: 'free',
-      }).catch(function(err) {
-        expect(err).to.be.instanceOf(error.Validation);
-      }).then(done, done);
+      })
+        .bind(this)
+        .catch(function(err) {
+          expect(err).to.be.instanceOf(this.kansas.error.Validation);
+        }).then(done, done);
     });
     it('will produce a Validation error if ownerId is empty string', function (done) {
-      fix.kansas.create({
+      this.kansas.create({
         ownerId: '',
         policyName: 'free',
-      }).catch(function(err) {
-        expect(err).to.be.instanceOf(error.Validation);
-      }).then(done, done);
+      })
+        .bind(this)
+        .catch(function(err) {
+          expect(err).to.be.instanceOf(this.kansas.error.Validation);
+        }).then(done, done);
     });
     it('will produce a Policy error if policyName is not provided', function (done) {
-      fix.kansas.create({
+      this.kansas.create({
         ownerId: 'hip',
-      }).catch(function(err) {
-        expect(err).to.be.instanceOf(error.Policy);
-      }).then(done, done);
+      })
+        .bind(this)
+        .catch(function(err) {
+          expect(err).to.be.instanceOf(this.kansas.error.Policy);
+        }).then(done, done);
     });
     it('will produce a Policy error if policyName does not exist', function (done) {
-      fix.kansas.create({
+      this.kansas.create({
         ownerId: 'hip',
         policyName: 'troll',
-      }).catch(function(err) {
-        expect(err).to.be.instanceOf(error.Policy);
-      }).then(done, done);
+      })
+        .bind(this)
+        .catch(function(err) {
+          expect(err).to.be.instanceOf(this.kansas.error.Policy);
+        }).then(done, done);
     });
   });
 
   describe('Consume Errors', function () {
     it('will produce a TokenNotExists error when token does not exist', function (done) {
-      fix.kansas.consume('troll')
-        .catch(function(err) {
-          expect(err).to.be.instanceOf(error.TokenNotExists);
+      this.kansas.consume('troll')
+        .bind(this)
+        .then(function() {
+          done('Should not be here');
         })
-        .then(done, done);
+        .catch(function(err) {
+          expect(err).to.be.instanceOf(this.kansas.error.TokenNotExists);
+          done();
+        })
+        .catch(done);
     });
     it('will produce a UsageLimit error when limit is exceeded', function (done) {
-      fix.kansas.consume(fix.token, 10)
+      return this.kansas.consume(this.token, 10)
+        .bind(this)
         .then(function() {
-          fix.kansas.consume(fix.token)
-          .catch(function(err) {
-            expect(err).to.be.instanceOf(error.UsageLimit);
-          })
-          .then(done, done);
+          return this.kansas.consume(this.token)
+            .bind(this)
+            .catch(function(err) {
+              expect(err).to.be.instanceOf(this.kansas.error.UsageLimit);
+              done();
+            });
+        })
+        .catch(function(err) {
+          done(err);
         });
     });
   });
 
   describe('Count Errors', function () {
     it('will produce a TokenNotExists error when token does not exist', function (done) {
-      fix.kansas.count('troll')
+      this.kansas.count('troll')
+        .bind(this)
         .catch(function(err) {
-          expect(err).to.be.instanceOf(error.TokenNotExists);
+          expect(err).to.be.instanceOf(this.kansas.error.TokenNotExists);
         })
         .then(done, done);
     });
     it('will produce a TokenNotExists error even if token is used multiple times', function (done) {
-      fix.kansas.count('troll')
+      this.kansas.count('troll')
+        .bind(this)
         .catch(function() {
-          return fix.kansas.count('troll')
+          return this.kansas.count('troll')
+            .bind(this)
             .then(function() {
               throw new Error('Should not allow API access');
             })
             .catch(function(err) {
-              expect(err).to.be.instanceOf(error.TokenNotExists);
+              expect(err).to.be.instanceOf(this.kansas.error.TokenNotExists);
             });
         })
         .then(done, done);
     });
     it('will produce a TokenNotExists error even when consuming multiple units', function (done) {
-      fix.kansas.count('troll', 5)
+      this.kansas.count('troll', 5)
+        .bind(this)
         .catch(function(err) {
-          expect(err).to.be.instanceOf(error.TokenNotExists);
+          expect(err).to.be.instanceOf(this.kansas.error.TokenNotExists);
         })
         .then(done, done);
     });

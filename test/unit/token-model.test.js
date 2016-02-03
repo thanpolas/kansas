@@ -3,8 +3,7 @@
  */
 
 var Promise = require('bluebird');
-var chai = require('chai');
-var assert = chai.assert;
+var assert = require('chai').assert;
 
 
 var period = require('../../lib/models/period-bucket.model');
@@ -17,14 +16,13 @@ var tokenAssert = require('../lib/token-assertions');
 
 // var tester = require('../lib/tester');
 
-suite('Token Model', function() {
-  this.timeout(4000);
+describe('Token Model', function() {
   var client;
   var tokenModel;
   var policyModel;
   var policyItem;
 
-  setup(function(done) {
+  beforeEach(function(done) {
     if (client) { return done(); }
     var redis = new Redis();
     redis.connect().then(function(cl) {
@@ -32,19 +30,19 @@ suite('Token Model', function() {
       done();
     }).catch(done);
   });
-  setup(function(done) {
+  beforeEach(function(done) {
     var clean = new Clean(client, {prefix: 'test'});
     clean.nuke('Yes purge all records irreversibly', 'test')
       .then(done, done);
   });
-  setup(function() {
+  beforeEach(function() {
     if (policyModel) { return; }
     policyModel = new PolicyModel();
     tokenModel = new TokenModel(client, {prefix: 'test'});
     tokenModel.setPolicy(policyModel);
   });
 
-  setup(function() {
+  beforeEach(function() {
     if (policyItem) { return; }
     policyItem = policyModel.create({
       name: 'free',
@@ -54,29 +52,29 @@ suite('Token Model', function() {
     });
   });
 
-  suite('SET', function() {
-    test('returned properties', function(done) {
+  describe('SET', function() {
+    it('returned properties', function(done) {
       tokenModel.set({
         policyName: policyItem.name,
         ownerId: 'hip',
       }).then(tokenAssert.properties)
         .then(done, done);
     });
-    test('returned types', function(done) {
+    it('returned types', function(done) {
       tokenModel.set({
         policyName: policyItem.name,
         ownerId: 'hip',
       }).then(tokenAssert.types)
         .then(done, done);
     });
-    test('returned values', function(done) {
+    it('returned values', function(done) {
       tokenModel.set({
         policyName: policyItem.name,
         ownerId: 'hip',
       }).then(tokenAssert.values)
         .then(done, done);
     });
-    test('use custom token', function(done) {
+    it('use custom token', function(done) {
       tokenModel.set({
         policyName: policyItem.name,
         ownerId: 'hip',
@@ -85,7 +83,7 @@ suite('Token Model', function() {
         assert.equal(tokenItem.token, 'custom');
       }).then(done, done);
     });
-    test('Check index and bucket keys created', function(done) {
+    it('Check index and bucket keys created', function(done) {
       tokenModel.set({
         policyName: policyItem.name,
         ownerId: 'hip',
@@ -116,10 +114,10 @@ suite('Token Model', function() {
     });
   });
 
-  suite('Delete', function() {
+  describe('Delete', function() {
     var tokenItem;
 
-    setup(function(done) {
+    beforeEach(function(done) {
       tokenModel.set({
         policyName: policyItem.name,
         ownerId: 'hip',
@@ -128,7 +126,7 @@ suite('Token Model', function() {
       }).then(done, done);
     });
 
-    test('removes all keys, token, usage, index', function(done) {
+    it('removes all keys, token, usage, index', function(done) {
       tokenModel.del(tokenItem.token).then(function() {
         var periodBucket = period.get('month');
         var indexKey = 'test:kansas:index:token:' + tokenItem.ownerId;
@@ -152,13 +150,13 @@ suite('Token Model', function() {
       }).then(done, done);
     });
 
-    test('remove a non existing key', function(done) {
+    it('remove a non existing key', function(done) {
       tokenModel.del('zit').then(done, done);
     });
   });
 
-  suite('MaxTokens Policy', function() {
-    test('will trigger MaxTokens error when reaching token limit', function(done) {
+  describe('MaxTokens Policy', function() {
+    it('will trigger MaxTokens error when reaching token limit', function(done) {
       Promise.all([
         tokenModel.set({policyName: policyItem.name, ownerId: 'hip'}),
         tokenModel.set({policyName: policyItem.name, ownerId: 'hip'}),
@@ -176,11 +174,11 @@ suite('Token Model', function() {
   });
 
 
-  suite('Get', function() {
+  describe('Get', function() {
     var tokenItemOne;
     var tokenItemTwo;
 
-    setup(function(done) {
+    beforeEach(function(done) {
       tokenModel.set({
         policyName: policyItem.name,
         ownerId: 'hip',
@@ -188,7 +186,7 @@ suite('Token Model', function() {
         tokenItemOne = item;
       }).then(done, done);
     });
-    setup(function(done) {
+    beforeEach(function(done) {
       tokenModel.set({
         policyName: policyItem.name,
         ownerId: 'hip',
@@ -197,20 +195,20 @@ suite('Token Model', function() {
       }).then(done, done);
     });
 
-    test('Will get a token item and have correct properties', function(done) {
+    it('Will get a token item and have correct properties', function(done) {
       tokenModel.get(tokenItemOne.token).then(tokenAssert.properties)
         .then(done, done);
     });
-    test('Will get a token item and have correct types', function(done) {
+    it('Will get a token item and have correct types', function(done) {
       tokenModel.get(tokenItemOne.token).then(tokenAssert.types)
         .then(done, done);
     });
-    test('Will get a token item and have correct values', function(done) {
+    it('Will get a token item and have correct values', function(done) {
       tokenModel.get(tokenItemOne.token).then(tokenAssert.values)
         .then(done, done);
     });
 
-    test('Will get all by owner id', function(done) {
+    it('Will get all by owner id', function(done) {
       tokenModel.getByOwnerIdActual('hip').then(function(items) {
         assert.isArray(items);
         assert.lengthOf(items, 2);

@@ -12,7 +12,6 @@ var kansasError = require('../../lib/util/error');
 var tokenAssert = require('../lib/token-assertions');
 
 describe('Tokens tests', function () {
-  this.timeout(4000);
   var client;
   var policyItem;
   var api;

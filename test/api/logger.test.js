@@ -7,7 +7,6 @@ var expect = chai.expect;
 var kansas = require('../..');
 
 describe('Logger', function() {
-  this.timeout(4000);
 
   it('Will emit "message" events', function(done) {
     function onMessage(msgObj) {
