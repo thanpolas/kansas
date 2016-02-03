@@ -1,15 +1,13 @@
 /**
  * @fileOverview Usage model unit tests.
  */
-
-var chai = require('chai');
-var assert = chai.assert;
+var assert = require('chai').assert;
 
 var period = require('../../lib/models/period-bucket.model');
 
-suite('Period Bucket Model', function() {
+describe('Period Bucket Model', function() {
 
-  test('period.getFuture() returns expected result', function() {
+  it('period.getFuture() returns expected result', function() {
     var res = period.getFuture('month', 1);
     var items = res.split('-');
     assert.lengthOf(items, 3);

@@ -2,16 +2,14 @@
  * @fileOverview Usage model unit tests.
  */
 var Promise = require('bluebird');
-var chai = require('chai');
 var sinon = require('sinon');
 var floordate = require('floordate');
-var assert = chai.assert;
+var assert = require('chai').assert;
 
 var kansasError = require('../../lib/util/error');
 var fixtures = require('../lib/fixtures');
 
-suite('Usage Model', function() {
-  this.timeout(4000);
+describe('Usage Model', function() {
   var fix;
 
   fixtures.setupCase(function(res) {
@@ -19,12 +17,12 @@ suite('Usage Model', function() {
   });
 
 
-  test('usage() consumes a unit', function(done) {
+  it('usage() consumes a unit', function(done) {
     fix.usageModel.consume(fix.token).then(function(remaining) {
       assert.equal(remaining, 9);
     }).then(done, done);
   });
-  test('usage() over limit returns error', function(done) {
+  it('usage() over limit returns error', function(done) {
 
     // create an array with 10 elements of the token to consume.
     var consume = Array.apply(null, new Array(10)).map(function() {
@@ -41,7 +39,7 @@ suite('Usage Model', function() {
         });
       }).then(done, done);
   });
-  test('usage() accepts units to consume', function(done) {
+  it('usage() accepts units to consume', function(done) {
     fix.usageModel.consume(fix.token, 10)
       .then(function() {
         return fix.usageModel.consume(fix.token).then(function() {
@@ -52,16 +50,16 @@ suite('Usage Model', function() {
       }).then(done, done);
   });
 
-  suite('Check month period', function() {
+  describe('Check month period', function() {
     var clock;
-    setup(function() {
+    beforeEach(function() {
       var floored = floordate(Date.now(), 'month');
       clock = sinon.useFakeTimers(floored.getTime());
     });
-    teardown(function() {
+    afterEach(function() {
       clock.restore();
     });
-    test('Will roll over to next month and reset limit', function(done) {
+    it('Will roll over to next month and reset limit', function(done) {
       var consume = Array.apply(null, new Array(10)).map(function() {
         return fix.token;
       });

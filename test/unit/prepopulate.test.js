@@ -2,39 +2,37 @@
  * @fileOverview Prepopulation unit tests.
  */
 var Promise = require('bluebird');
-var chai = require('chai');
 var sinon = require('sinon');
 var floordate = require('floordate');
-var assert = chai.assert;
+var assert = require('chai').assert;
 
 var Prepopulate = require('../../lib/db/populate.db');
 var fixtures = require('../lib/fixtures');
 
-suite('Prepopulation of usage keys', function() {
-  this.timeout(10000);
+describe('Prepopulation of usage keys', function() {
   var fix;
 
   fixtures.setupCase(function(res) {
     fix = res;
   });
 
-  suite('Skip one month ahead', function() {
+  describe('Skip one month ahead', function() {
     var clock;
-    setup(function() {
+    beforeEach(function() {
       var floored = floordate(Date.now(), 'month');
       var moveFwd = 40 * 24 * 3600 * 1000;
       clock = sinon.useFakeTimers(floored.getTime() + moveFwd);
     });
-    teardown(function() {
+    afterEach(function() {
       clock.restore();
     });
 
-    test('check prepopulation works', function(done) {
+    it('check prepopulation works', function(done) {
       var pre = new Prepopulate(fix.client, {prefix: 'test'});
       pre.prepopulate().then(function() {
         var keys = fix.tokenModel.getKeys(fix.tokenItem);
         var keysTwo = fix.tokenModel.getKeys(fix.tokenItemTwo);
-        var pget = Promise.promisify(fix.client.get, fix.client);
+        var pget = Promise.promisify(fix.client.get, {context: fix.client});
         return Promise.all([
           pget(keys.usage),
           pget(keys.usageFuture),
