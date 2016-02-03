@@ -11,6 +11,7 @@ module.exports = function (grunt) {
       options: {
         ui: 'bdd',
         clearRequireCache: true,
+        timeout: 10000,
       },
       api: {
         src: ['test/api/*.js']
