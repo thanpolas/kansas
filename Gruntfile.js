@@ -16,9 +16,6 @@ module.exports = function (grunt) {
         src: ['test/api/*.js']
       },
       unit: {
-        options: {
-          ui: 'tdd',
-        },
         src: ['test/unit/*.js']
       },
     },
